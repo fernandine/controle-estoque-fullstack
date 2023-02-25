@@ -1,0 +1,50 @@
+<div style="height: 150px" class="border-2 border-dashed surface-border">
+
+  <p-dialog [(visible)]="form"  [modal]="true" breakpoints="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '52vw'}" header="Edit Payment Method"  >
+    <ng-template pTemplate="header">
+            <div class="flex flex-column gap-2">
+                <h1 class="m-0 text-900 font-semibold text-xl line-height-3">Edit Payment Method</h1>
+                <span class="text-600 text-base">Quis enim lobortis scelerisque fermentum dui faucibus in ornare quam.</span>
+            </div>
+    </ng-template>
+    <form class="flex flex-column gap-3 mt-3">
+        <div>
+            <label for="cardholder" class="block mb-1 text-color text-base">Cardholder Name</label>
+            <span class="p-input-icon-left w-full">
+                <i class="pi pi-user"></i>
+                <input name="cardholder" type="text" class="w-full" id="cardholder" pInputText />
+            </span>
+        </div>
+        <div>
+            <label for="credit-card" class="block mb-1 text-color text-base">Credit Card Number</label>
+            <span class="p-input-icon-left w-full">
+                <i class="pi pi-credit-card"></i>
+                <input name="cc" type="text" class="w-full" id="credit-card" pInputText placeholder="1234-1234-1234-1234"/>
+            </span>
+        </div>
+        <div class="flex gap-3">
+            <div class="w-full">
+                <label for="cvc" class="block mb-1 text-color text-base">CVC</label>
+                <span class="p-input-icon-left w-full">
+                    <i class="pi pi-lock"></i>
+                    <input name="cvc" type="text"  class="w-full" id="cvc" pInputText pKeyFilter="int" placeholder="123"/>
+                </span>
+            </div>
+            <div class="w-full">
+                <label for="expiration" class="block mb-1 text-color text-base">Expiration</label>
+                <span class="p-input-icon-left w-full">
+                    <i class="pi pi-clock"></i>
+                    <input name="exp" type="text"  class="w-full" id="expiration" pInputText placeholder="12/22"/>
+                </span>
+            </div>
+        </div>
+    </form>
+    <ng-template pTemplate="footer">
+        <div class="flex gap-3 justify-content-end border-top-1 surface-border pt-5">
+            <button pButton pRipple label="Cancel" (click)="onSubmit()" class="p-button-text"></button>
+            <button pButton pRipple label="Update" (click)="onSubmit()" class="p-button-rounded"></button>
+        </div>
+    </ng-template>
+</p-dialog>
+</div>
+
