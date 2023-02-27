@@ -19,7 +19,7 @@ public class Produto implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(unique = true)
-    private String EAN;
+    private String codigo;
     private String nome;
     @JoinColumn(name = "quantidade_minima")
     private Long quantidadeMinima;
@@ -27,6 +27,6 @@ public class Produto implements Serializable {
     private Double saldoInicial;
 
     @OneToMany(mappedBy = "produto")
-    private List<MovimentoEstoque> movimentacoes;
+    private List<Movimentacao> movimentacoes;
 
 }

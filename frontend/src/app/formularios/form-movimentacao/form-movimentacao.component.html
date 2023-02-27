@@ -1,0 +1,42 @@
+<div class="p-fluid">
+  <form [formGroup]="formMovimentacao" (ngSubmit)="insertMovimentacao()">
+    <div class="p-field">
+      <div class="p-field">
+        <label for="produtoId">ID do Produto*</label>
+        <input type="number" formControlName="produtoId" pInputText />
+      </div>
+      <label for="tipoMovimento">Tipo de Movimento*</label>
+      <p-dropdown formControlName="tipoMovimento" [options]="tipoMovimento"></p-dropdown>
+    </div>
+    <div class="p-field">
+      <label for="data">Data*</label>
+      <p-calendar formControlName="data"  [showIcon]="true"></p-calendar>
+    </div>
+    <div class="p-field">
+      <label for="quantidade">Quantidade</label>
+      <input type="number" formControlName="quantidade" pInputText />
+    </div>
+
+    <div class="p-field">
+      <label for="motivo">Motivo</label>
+      <textarea rows="3" formControlName="motivo" pInputTextarea></textarea>
+    </div>
+    <div class="p-field">
+      <label for="documento">Documento</label>
+      <input type="text" formControlName="documento" pInputText />
+    </div>
+    <div class="p-field">
+      <label for="documento">Saldo</label>
+      <input type="number" formControlName="saldo" pInputText />
+      <span class="p-inputgroup-addon">.00</span>
+    </div>
+    <div class="p-field">
+      <label for="documento">Situação</label>
+      <input type="text" formControlName="situacao" pInputText />
+    </div>
+
+    <button pButton type="submit" label="Salvar" [disabled]="!formMovimentacao.valid"></button>
+    <button pButton type="button" label="Apagar" (click)="fecharDialog()"></button>
+
+  </form>
+</div>

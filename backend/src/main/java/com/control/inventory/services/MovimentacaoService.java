@@ -1,7 +1,7 @@
 package com.control.inventory.services;
 
-import com.control.inventory.dtos.MovimentoEstoqueDto;
-import com.control.inventory.entities.MovimentoEstoque;
+import com.control.inventory.dtos.MovimentacaoDto;
+import com.control.inventory.entities.Movimentacao;
 import com.control.inventory.entities.Produto;
 import com.control.inventory.entities.enums.StatusMovimento;
 import com.control.inventory.repositories.MovimentoEstoqueRepository;
@@ -16,41 +16,39 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class MovimentoEstoqueService {
+public class MovimentacaoService {
 
     @Autowired
     private MovimentoEstoqueRepository repository;
 
 
     @Transactional(readOnly = true)
-    public List<MovimentoEstoqueDto> findAll() {
-        List<MovimentoEstoque> list = repository.findAll();
-        return list.stream().map(MovimentoEstoqueDto::new).collect(Collectors.toList());
+    public List<MovimentacaoDto> findAll() {
+        List<Movimentacao> list = repository.findAll();
+        return list.stream().map(MovimentacaoDto::new).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
-    public Page<MovimentoEstoqueDto> findByTipoMovimento(StatusMovimento tipoMovimento, Pageable pageable) {
-        Page<MovimentoEstoque> page = repository.findByTipoMovimento(tipoMovimento, pageable);
-        return page.map(MovimentoEstoqueDto::new);
+    public Page<MovimentacaoDto> findByTipoMovimento(StatusMovimento tipoMovimento, Pageable pageable) {
+        Page<Movimentacao> page = repository.findByTipoMovimento(tipoMovimento, pageable);
+        return page.map(MovimentacaoDto::new);
     }
 
     @Transactional(readOnly = true)
-    public MovimentoEstoqueDto findById(Long id) {
-            Optional<MovimentoEstoque> obj = repository.findById(id);
-        MovimentoEstoque entity = obj.orElseThrow(()-> new ResourceNotFoundException("Entity not found"));
-            return new MovimentoEstoqueDto(entity);
+    public MovimentacaoDto findById(Long id) {
+            Optional<Movimentacao> obj = repository.findById(id);
+        Movimentacao entity = obj.orElseThrow(()-> new ResourceNotFoundException("Entity not found"));
+            return new MovimentacaoDto(entity);
     }
 
     @Transactional
-    public MovimentoEstoqueDto insert(MovimentoEstoqueDto dto) {
-        MovimentoEstoque entity = new MovimentoEstoque();
+    public MovimentacaoDto insert(MovimentacaoDto dto) {
+        Movimentacao entity = new Movimentacao();
 
         copyDtoToEntity(dto, entity);
 
@@ -59,16 +57,16 @@ public class MovimentoEstoqueService {
         entity.setProduto(produto);
 
         entity = repository.save(entity);
-        return new MovimentoEstoqueDto(entity);
+        return new MovimentacaoDto(entity);
     }
 
     @Transactional
-    public MovimentoEstoqueDto update(Long id, MovimentoEstoqueDto dto) {
+    public MovimentacaoDto update(Long id, MovimentacaoDto dto) {
         try {
-            MovimentoEstoque entity = repository.getReferenceById(id);
+            Movimentacao entity = repository.getReferenceById(id);
             copyDtoToEntity(dto, entity);
             entity = repository.save(entity);
-            return new MovimentoEstoqueDto(entity);
+            return new MovimentacaoDto(entity);
         }
         catch (EntityNotFoundException e) {
             throw new ResourceNotFoundException("Id not found " + id);
@@ -87,13 +85,15 @@ public class MovimentoEstoqueService {
         }
     }
 
-    private void copyDtoToEntity(MovimentoEstoqueDto dto, MovimentoEstoque entity) {
+    private void copyDtoToEntity(MovimentacaoDto dto, Movimentacao entity) {
 
         entity.setData(dto.getData());
         entity.setDocumento(dto.getDocumento());
         entity.setMotivo(dto.getMotivo());
         entity.setQuantidade(dto.getQuantidade());
         entity.setTipoMovimento(dto.getTipoMovimento() );
+        entity.setSaldo(dto.getSaldo());
+        entity.setSituacao(dto.getSituacao());
 
     }
 

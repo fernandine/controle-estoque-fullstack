@@ -1,7 +1,6 @@
 package com.control.inventory.controllers;
 
 import com.control.inventory.dtos.ProdutoDto;
-import com.control.inventory.entities.Produto;
 import com.control.inventory.services.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,11 +10,11 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
+
 
 @RestController
 @RequestMapping(value = "/produtos")
-//@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600, allowCredentials="true")
+@CrossOrigin(origins = "http://localhost:8081", maxAge = 3600, allowCredentials="true")
 public class ProdutoController {
 
     @Autowired

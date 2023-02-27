@@ -1,0 +1,32 @@
+<p-table *ngIf="produto">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Chave</th>
+      <th>Valor</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-produto>
+    <tr>
+      <td>Id</td>
+      <td>{{produto.id}}</td>
+    </tr>
+    <tr>
+      <td>Nome</td>
+      <td>{{produto.nome}}</td>
+    </tr>
+    <tr>
+      <td>Quantidade Mínima</td>
+      <td>{{produto.quantidadeMinima}}</td>
+    </tr>
+    <tr>
+      <td>Saldo Inicial</td>
+      <td>{{produto.saldoInicial}}</td>
+    </tr>
+    <tr>
+      <td>Código de Barras</td>
+      <td>{{produto.codigo}}</td>
+    </tr>
+  </ng-template>
+  <button pButton (click)="onEdit(produto)" label="Editar" type="button" icon="pi pi-edit" iconPos="left"></button>
+
+</p-table>

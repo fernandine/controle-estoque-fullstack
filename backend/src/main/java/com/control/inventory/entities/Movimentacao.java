@@ -1,12 +1,12 @@
 package com.control.inventory.entities;
 
 import com.control.inventory.entities.enums.StatusMovimento;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
@@ -16,7 +16,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class MovimentoEstoque implements Serializable {
+public class Movimentacao implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,9 +25,14 @@ public class MovimentoEstoque implements Serializable {
     @JoinColumn(name = "tipo_movimento")
     private StatusMovimento tipoMovimento;
     private Integer quantidade;
+
     private LocalDate data;
     private String motivo;
     private String documento;
+
+    private BigDecimal saldo;
+
+    private String situacao;
 
     @ManyToOne
     @JoinColumn(name = "produto_id")
