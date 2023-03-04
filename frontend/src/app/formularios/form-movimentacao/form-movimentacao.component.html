@@ -10,7 +10,7 @@
     </div>
     <div class="p-field">
       <label for="data">Data*</label>
-      <p-calendar formControlName="data"  [showIcon]="true"></p-calendar>
+      <p-calendar formControlName="data" [showIcon]="true"></p-calendar>
     </div>
     <div class="p-field">
       <label for="quantidade">Quantidade</label>
@@ -21,6 +21,7 @@
       <label for="motivo">Motivo</label>
       <textarea rows="3" formControlName="motivo" pInputTextarea></textarea>
     </div>
+
     <div class="p-field">
       <label for="documento">Documento</label>
       <input type="text" formControlName="documento" pInputText />
@@ -28,15 +29,14 @@
     <div class="p-field">
       <label for="documento">Saldo</label>
       <input type="number" formControlName="saldo" pInputText />
-      <span class="p-inputgroup-addon">.00</span>
     </div>
     <div class="p-field">
       <label for="documento">Situação</label>
       <input type="text" formControlName="situacao" pInputText />
     </div>
 
-    <button pButton type="submit" label="Salvar" [disabled]="!formMovimentacao.valid"></button>
-    <button pButton type="button" label="Apagar" (click)="fecharDialog()"></button>
+    <button pButton type="submit" label="Salvar" (click)="insertMovimentacao()" [disabled]="!formMovimentacao.valid"></button>
+    <button pButton type="button" label="Apagar" (click)="cancel()"></button>
 
   </form>
 </div>

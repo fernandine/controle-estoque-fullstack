@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Produto } from '../common/produto';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProdutoService {
+  getProdutoSelecionado(): any {
+    throw new Error('Method not implemented.');
+  }
 
   private readonly apiUrl = 'http://localhost:8080/produtos';
 
@@ -19,7 +22,7 @@ export class ProdutoService {
   createProduto(produto: Produto): Observable<Produto> {
     return this.http.post<Produto>(this.apiUrl, produto);
   }
-/*
+
   updateProduto(produto: Produto): Observable<Produto> {
     const url = `${this.apiUrl}/${produto.id}`;
     return this.http.put<Produto>(url, produto);
@@ -28,10 +31,11 @@ export class ProdutoService {
   deleteProduto(produto: Produto): Observable<Produto> {
     const url = `${this.apiUrl}/${produto.id}`;
     return this.http.delete<Produto>(url);
-  }*/
+  }
 
   produtoPorId(id: number): Observable<Produto> {
-    const url = `${this.apiUrl}/${id}`;
-    return this.http.get<Produto>(url);
+    return this.http.get<Produto>(`${this.apiUrl}/${id}`);
   }
+
+
 }

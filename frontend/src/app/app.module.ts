@@ -13,9 +13,11 @@ import { LoginComponent } from './components/login/login.component';
 import { FormMovimentacaoComponent } from './formularios/form-movimentacao/form-movimentacao.component';
 import { HomeComponent } from './components/home/home.component';
 import { FormProdutoComponent } from './formularios/form-produto/form-produto.component';
-import { ListaMovimentacaoComponent } from './listas/lista-movimentacao/lista-movimentacao.component';
 import { ListaProdutoComponent } from './listas/lista-produto/lista-produto.component';
 import { MessageService } from 'primeng/api';
+import { ListaMovimentacaoComponent } from './lista-movimentacao/lista-movimentacao.component';
+import { DetalheProdutoComponent } from './detalhe-produto/detalhe-produto.component';
+import { DetalheMovimentacaoComponent } from './detalhe-movimentacao/detalhe-movimentacao.component';
 
 @NgModule({
     declarations: [
@@ -25,7 +27,9 @@ import { MessageService } from 'primeng/api';
         FormMovimentacaoComponent,
         FormProdutoComponent,
         ListaMovimentacaoComponent,
-        ListaProdutoComponent
+        ListaProdutoComponent,
+        DetalheProdutoComponent,
+        DetalheMovimentacaoComponent
           ],
     providers: [
       MessageService

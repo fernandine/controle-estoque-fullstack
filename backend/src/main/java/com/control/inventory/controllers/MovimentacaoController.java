@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -45,7 +46,7 @@ public class MovimentacaoController {
 
     @PostMapping
     //@PreAuthorize("hasRole('ROLE_GERENTE')")
-    public ResponseEntity<MovimentacaoDto> insert(@RequestBody MovimentacaoDto dto) {
+    public ResponseEntity<MovimentacaoDto> insert(@Valid @RequestBody MovimentacaoDto dto) {
         dto = service.insert(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(dto.getId()).toUri();
@@ -54,7 +55,7 @@ public class MovimentacaoController {
 
     @PutMapping(value = "/{id}")
     //@PreAuthorize("hasRole('ROLE_GERENTE')")
-    public ResponseEntity<MovimentacaoDto> update(@PathVariable Long id, @RequestBody MovimentacaoDto dto) {
+    public ResponseEntity<MovimentacaoDto> update(@PathVariable Long id, @Valid @RequestBody MovimentacaoDto dto) {
         dto = service.update(id, dto);
         return ResponseEntity.ok().body(dto);
     }

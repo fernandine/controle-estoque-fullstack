@@ -1,26 +1,62 @@
-<div class="p-fluid">
-  <div class="p-field">
-    <label for="id" class="font-medium">Id</label>
-    <input id="id" type="text" pInputText class="p-inputtext-lg" style="margin-bottom: 1rem;">
-  </div>
+<form [formGroup]="formProduto" (ngSubmit)="save()" class="p-fluid">
   <div class="p-field">
     <label for="code" class="font-medium">Código de Barra</label>
-    <input id="code" type="text" pInputText class="p-inputtext-lg" style="margin-bottom: 1rem;">
+    <input
+      id="code"
+      type="text"
+      pInputText
+      class="p-inputtext-lg"
+      formControlName="codigo"
+      style="margin-bottom: 1rem"
+    />
   </div>
   <div class="p-field">
     <label for="nome" class="font-medium">Nome do produto</label>
-    <input id="nome" type="text" pInputText class="p-inputtext-lg" style="margin-bottom: 1rem;">
+    <input
+      id="nome"
+      type="text"
+      pInputText
+      class="p-inputtext-lg"
+      formControlName="nome"
+      style="margin-bottom: 1rem"
+    />
   </div>
   <div class="p-field">
     <label for="quantidade" class="font-medium">Quantidade Mínima</label>
-    <input id="quantidade" type="text" pInputText class="p-inputtext-lg" style="margin-bottom: 1rem;">
+    <input
+      id="quantidade"
+      type="text"
+      pInputText
+      class="p-inputtext-lg"
+      formControlName="quantidadeMinima"
+      style="margin-bottom: 1rem"
+    />
   </div>
   <div class="p-field">
     <label for="saldo" class="font-medium">Saldo Inicial</label>
-    <input id="saldo" type="text" pInputText class="p-inputtext-lg" style="margin-bottom:1rem;">
+    <input
+      id="saldo"
+      type="text"
+      pInputText
+      class="p-inputtext-lg"
+      formControlName="saldoInicial"
+      style="margin-bottom: 1rem"
+    />
   </div>
   <div class="p-dialog-footer">
-    <button type="button" pButton icon="pi pi-times" label="Apagar" ></button>
-    <button type="button" pButton icon="pi pi-check" label="Salvar" ></button>
+    <button
+      type="button"
+      pButton
+      icon="pi pi-times"
+      label="Cancelar"
+      (click)="cancel()"
+    ></button>
+    <button
+      type="submit"
+      pButton
+      icon="pi pi-check"
+      label="Salvar"
+      [disabled]="formProduto.invalid"
+    ></button>
   </div>
-</div>
+</form>

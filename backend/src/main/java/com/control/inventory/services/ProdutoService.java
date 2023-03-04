@@ -42,9 +42,9 @@ public class ProdutoService {
 
         copyDtoToEntity(dto, entity);
 
-        if (entity.getSaldoInicial() > 0) {
-            return new ProdutoDto(entity);
-        }
+        //if (entity.getSaldoInicial() > 0) {
+       //     return new ProdutoDto(entity);
+      //  }
 
         entity = repository.save(entity);
             return new ProdutoDto(entity);

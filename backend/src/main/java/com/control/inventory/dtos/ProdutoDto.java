@@ -1,6 +1,7 @@
 package com.control.inventory.dtos;
 
 import com.control.inventory.entities.Produto;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProdutoDto implements Serializable {
+
 
     private Long id;
     private String codigo;

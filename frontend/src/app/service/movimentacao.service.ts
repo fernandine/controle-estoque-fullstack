@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Movimentacao } from '../common/movimentacao';
-import { Produto } from '../common/produto';
+
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +20,7 @@ export class MovimentacaoService {
   createMovimentacao(movimentacao: Movimentacao): Observable<Movimentacao> {
     return this.http.post<Movimentacao>(this.apiUrl, movimentacao);
   }
-/*
+
   updateMovimentacao(movimentacao: Movimentacao): Observable<Movimentacao> {
     const url = `${this.apiUrl}/${movimentacao.produtoId}`;
     return this.http.put<Movimentacao>(url, movimentacao);
@@ -29,7 +29,10 @@ export class MovimentacaoService {
   deleteMovimentacao(movimentacao: Movimentacao): Observable<Movimentacao> {
     const url = `${this.apiUrl}/${movimentacao.produtoId}`;
     return this.http.delete<Movimentacao>(url);
-  }*/
+  }
 
+  MovimentacaoPorId(id: number): Observable<Movimentacao> {
+    return this.http.get<Movimentacao>(`${this.apiUrl}/${id}`);
+  }
 
 }

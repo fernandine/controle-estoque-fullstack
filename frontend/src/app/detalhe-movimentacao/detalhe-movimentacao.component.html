@@ -1,0 +1,82 @@
+<div *ngIf="movimentacao">
+  <div class="font-medium text-3xl text-900 mb-3">Detalhes dos Lançamentos</div>
+  <div class="text-500 mb-5">Para editar os campos, clique no ícone ao lado.</div>
+  <ul class="list-none p-0 m-0">
+
+      <li class="flex align-items-center py-3 px-2 border-top-1 surface-border flex-wrap">
+          <div class="text-500 w-6 md:w-2 font-medium">Produto</div>
+          <div class="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">{{movimentacao.produtoId}}</div>
+          <div class="w-6 md:w-2 flex justify-content-end">
+          </div>
+      </li>
+
+      <li class="flex align-items-center py-3 px-2 border-top-1 surface-border flex-wrap">
+          <div class="text-500 w-6 md:w-2 font-medium">Data do Lançamento</div>
+          <div class="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">
+            <span *ngIf="!editandoData">{{movimentacao.data}}</span>
+            <input *ngIf="editandoData" type="text" pInputText [(ngModel)]="movimentacao.data" />
+          </div>
+          <div class="w-6 md:w-2 flex justify-content-end">
+              <button pButton pRipple label="Edit" icon="pi pi-pencil" class="p-button-text" (click)="editField('data')"></button>
+          </div>
+      </li>
+
+      <li class="flex align-items-center py-3 px-2 border-top-1 surface-border flex-wrap">
+        <div class="text-500 w-6 md:w-2 font-medium">Tipo de Movimentação</div>
+        <div class="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">
+          <span *ngIf="!editandoTipoMovimento">{{movimentacao.tipoMovimento}}</span>
+          <input *ngIf="editandoTipoMovimento" type="text" pInputText [(ngModel)]="movimentacao.tipoMovimento" />
+        </div>
+        <div class="w-6 md:w-2 flex justify-content-end">
+            <button pButton pRipple label="Edit" icon="pi pi-pencil" class="p-button-text" (click)="editField('tipoMovimento')"></button>
+        </div>
+    </li>
+
+      <li class="flex align-items-center py-3 px-2 border-top-1 surface-border flex-wrap">
+          <div class="text-500 w-6 md:w-2 font-medium">Documento</div>
+          <div class="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">
+            <span *ngIf="!editandoDocumento">{{movimentacao.documento}}</span>
+            <input *ngIf="editandoDocumento" type="text" pInputText [(ngModel)]="movimentacao.documento" />
+          </div>
+          <div class="w-6 md:w-2 flex justify-content-end">
+              <button pButton pRipple label="Edit" icon="pi pi-pencil" class="p-button-text" (click)="editField('quantidadeMinima')"></button>
+          </div>
+      </li>
+
+      <li class="flex align-items-center py-3 px-2 border-top-1 surface-border flex-wrap">
+        <div class="text-500 w-6 md:w-2 font-medium">Quantidade</div>
+        <div class="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">
+          <span *ngIf="!editandoQuantidade">{{movimentacao.quantidade}}</span>
+          <input *ngIf="editandoQuantidade" type="number" pInputNumber [(ngModel)]="movimentacao.quantidade" />
+        </div>
+        <div class="w-6 md:w-2 flex justify-content-end">
+            <button pButton pRipple label="edit" icon="pi pi-pencil" class="p-button-text" (click)="editField('quantidade')"></button>
+        </div>
+    </li>
+
+    <li class="flex align-items-center py-3 px-2 border-top-1 surface-border flex-wrap">
+      <div class="text-500 w-6 md:w-2 font-medium">Motivo</div>
+      <div class="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">
+        <span *ngIf="!editandoMotivo">{{movimentacao.motivo}}</span>
+        <input *ngIf="editandoMotivo" type="text" pInputText [(ngModel)]="movimentacao.motivo" />
+      </div>
+      <div class="w-6 md:w-2 flex justify-content-end">
+          <button pButton pRipple label="Edit" icon="pi pi-pencil" class="p-button-text" (click)="editField('motivo')"></button>
+      </div>
+  </li>
+
+    <li class="flex align-items-center py-3 px-2 border-top-1 surface-border flex-wrap">
+      <div class="text-500 w-6 md:w-2 font-medium">Saldo</div>
+      <div class="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">
+        <span *ngIf="!editandoSaldo">{{movimentacao.saldo}}</span>
+        <input *ngIf="editandoSaldo" type="number" pInputNumber [(ngModel)]="movimentacao.saldo" />
+      </div>
+      <div class="w-6 md:w-2 flex justify-content-end">
+          <button pButton pRipple label="edit" icon="pi pi-pencil" class="p-button-text" (click)="editField('saldo')"></button>
+      </div>
+  </li>
+
+  </ul>
+</div>
+
+

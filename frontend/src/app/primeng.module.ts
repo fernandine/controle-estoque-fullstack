@@ -79,15 +79,14 @@ import { StyleClassModule } from 'primeng/styleclass';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { MessageService } from 'primeng/api';
-
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
 
 
 
 @NgModule({
   imports: [CommonModule],
   exports: [
-
+    DynamicDialogModule,
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,

@@ -28,12 +28,12 @@ INSERT INTO tb_produto (codigo, nome, quantidade_minima, saldo_inicial) VALUES (
 -- Tipo de movimentação
 -- -------------------------------------------
 
-INSERT INTO tb_estoque_movimento (produto_id, tipo_movimento, quantidade, data, motivo, documento, saldo, situacao) VALUES (1, 0, 15, '2023-02-24', 'Compra direta', 'INV-1285', 45, 'enviado');
-INSERT INTO tb_estoque_movimento (produto_id, tipo_movimento, quantidade, data, motivo, documento, saldo, situacao) VALUES (2, 2, 25, '2023-01-09', 'Venda', 'AJ-12745', 45, 'enviado');
-INSERT INTO tb_estoque_movimento (produto_id, tipo_movimento, quantidade, data, motivo, documento, saldo, situacao) VALUES (3, 3, 42, '2023-01-17', 'Ajuste Manual', 'INV-92345', 45, 'enviado');
-INSERT INTO tb_estoque_movimento (produto_id, tipo_movimento, quantidade, data, motivo, documento, saldo, situacao) VALUES (4, 4, 37, '2023-01-13', 'Saldo Inicial', 'INV-185345', 45, 'enviado');
-INSERT INTO tb_estoque_movimento (produto_id, tipo_movimento, quantidade, data, motivo, documento, saldo, situacao) VALUES (5, 3, 26, '2023-02-21', 'Saldo Iniciaa', 'QP-1445', 45, 'enviado');
-INSERT INTO tb_estoque_movimento (produto_id, tipo_movimento, quantidade, data, motivo, documento, saldo, situacao) VALUES (6, 1, 80, '2023-02-10', 'Ajuste Manual', 'INV-1945', 45, 'enviado');
-INSERT INTO tb_estoque_movimento (produto_id, tipo_movimento, quantidade, data, motivo, documento, saldo, situacao) VALUES (7, 2, 16, '2023-01-05', 'Venda', 'AJ-12348', 45, 'enviado');
-INSERT INTO tb_estoque_movimento (produto_id, tipo_movimento, quantidade, data, motivo, documento, saldo, situacao) VALUES (8, 3, 7, '2023-01-02', 'Compra direta', 'AV-12645', 45, 'enviado');
+INSERT INTO tb_estoque_movimento (produto_id, tipo_movimento, quantidade, data, motivo, documento, saldo, situacao) VALUES (1, 0, 15, '2023-01-23', 'Compra direta', 'INV-1285', 45, 'enviado');
+INSERT INTO tb_estoque_movimento (produto_id, tipo_movimento, quantidade, data, motivo, documento, saldo, situacao) VALUES (2, 2, 25, '2023-01-23', 'Venda', 'AJ-12745', 45, 'enviado');
+INSERT INTO tb_estoque_movimento (produto_id, tipo_movimento, quantidade, data, motivo, documento, saldo, situacao) VALUES (3, 3, 42, '2023-01-23', 'Ajuste Manual', 'INV-92345', 45, 'enviado');
+INSERT INTO tb_estoque_movimento (produto_id, tipo_movimento, quantidade, data, motivo, documento, saldo, situacao) VALUES (4, 4, 37, '2023-01-23', 'Saldo Inicial', 'INV-185345', 45, 'enviado');
+INSERT INTO tb_estoque_movimento (produto_id, tipo_movimento, quantidade, data, motivo, documento, saldo, situacao) VALUES (5, 3, 26, '2023-01-23', 'Saldo Iniciaa', 'QP-1445', 45, 'enviado');
+INSERT INTO tb_estoque_movimento (produto_id, tipo_movimento, quantidade, data, motivo, documento, saldo, situacao) VALUES (6, 1, 80, '2023-01-23', 'Ajuste Manual', 'INV-1945', 45, 'enviado');
+INSERT INTO tb_estoque_movimento (produto_id, tipo_movimento, quantidade, data, motivo, documento, saldo, situacao) VALUES (7, 2, 16, '2023-01-23', 'Venda', 'AJ-12348', 45, 'enviado');
+INSERT INTO tb_estoque_movimento (produto_id, tipo_movimento, quantidade, data, motivo, documento, saldo, situacao) VALUES (8, 3, 7, '2023-01-23', 'Compra direta', 'AV-12645', 45, 'enviado');
 

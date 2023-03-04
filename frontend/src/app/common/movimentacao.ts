@@ -1,6 +1,7 @@
 import { TipoMovimento } from './tipoMovimento';
 
 export interface Movimentacao {
+  id: any;
   produtoId: number;
   tipoMovimento: TipoMovimento;
   data: Date;

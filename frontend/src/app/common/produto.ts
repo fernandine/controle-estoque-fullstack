@@ -1,9 +1,7 @@
 export interface Produto {
-
-  id: number;
-  codigo: string;
+  id: any;
   nome: string;
+  codigo: string;
   quantidadeMinima: number;
   saldoInicial: number;
-  editando: boolean;
 }

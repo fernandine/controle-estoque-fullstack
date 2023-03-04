@@ -1,32 +1,30 @@
-<p-table *ngIf="produto">
+<p-table [value]="produtos" [paginator]="true" [rows]="6" [responsive]="true">
   <ng-template pTemplate="header">
     <tr>
-      <th>Chave</th>
-      <th>Valor</th>
+      <th>SKU</th>
+      <th>EAN</th>
+      <th>Nome</th>
+      <th>Quantidade Mínima</th>
+      <th>Saldo Inicial</th>
+
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-produto>
     <tr>
-      <td>Id</td>
-      <td>{{produto.id}}</td>
-    </tr>
-    <tr>
-      <td>Nome</td>
-      <td>{{produto.nome}}</td>
-    </tr>
-    <tr>
-      <td>Quantidade Mínima</td>
-      <td>{{produto.quantidadeMinima}}</td>
-    </tr>
-    <tr>
-      <td>Saldo Inicial</td>
-      <td>{{produto.saldoInicial}}</td>
-    </tr>
-    <tr>
-      <td>Código de Barras</td>
-      <td>{{produto.codigo}}</td>
+      <td>{{ produto.id }}</td>
+      <td>{{ produto.codigo }}</td>
+      <td>{{ produto.nome }}</td>
+      <td>{{ produto.quantidadeMinima }}</td>
+      <td>{{ produto.saldoInicial | currency: "BRL" }}</td>
+      <td>
+        <button pButton class="mr-6" type="button" label="Detalhes" icon="pi pi-search" (click)="mostrarDetalhes(produto)"></button>
+        <button pButton class="p-button-danger" type="button" label="Excluir" icon="pi pi-trash" (click)="excluirProduto(produto)"></button>
+
+      </td>
     </tr>
   </ng-template>
-  <button pButton (click)="onEdit(produto)" label="Editar" type="button" icon="pi pi-edit" iconPos="left"></button>
-
 </p-table>
+
+<p-dialog [(visible)]="exibirDetalhes" appendTo="body" [modal]="true" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '52vw'}" [draggable]="false" [resizable]="false">
+  <app-detalhe-produto></app-detalhe-produto>
+</p-dialog>

@@ -1,7 +1,7 @@
+import { Movimentacao } from './../../common/movimentacao';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Movimentacao } from 'src/app/common/movimentacao';
 import { MovimentacaoService } from 'src/app/service/movimentacao.service';
 
 import { TipoMovimento } from '../../common/tipoMovimento';
@@ -16,7 +16,8 @@ export class FormMovimentacaoComponent implements OnInit {
 
   movimentacoes: Movimentacao[] = [];
   formMovimentacao!: FormGroup;
-  displayDialog!: boolean;
+  displayDialog: boolean = false;
+
   tipoMovimento = [
     { label: TipoMovimento.ENTRADA, value: TipoMovimento.ENTRADA },
     { label: TipoMovimento.SAIDA, value: TipoMovimento.SAIDA },
@@ -28,47 +29,43 @@ export class FormMovimentacaoComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private service: MovimentacaoService,
-    private route: ActivatedRoute,
-    private notificacaoService: NotificacaoService
     ) { }
 
   ngOnInit(): void {
-    this.getMovimentacoes();
     this.formMovimentacao = this.fb.group({
-      produtoId: ['', Validators.required],
+      produtoId: [0, Validators.required],
       tipoMovimento: ['', Validators.required],
-      quantidade: [''],
+      quantidade: [0, Validators.required],
       data: ['', Validators.required],
-      motivo: [''],
-      documento: [''],
-      saldo: [''],
-      situacao: ['']
+      motivo: ['', Validators.required],
+      documento: ['', Validators.required],
+      saldo: [0, Validators.required],
+      situacao: ['', Validators.required]
     });
-    this.getMovimentacoes();
+this.getMovimentacoes();
   }
 
   insertMovimentacao() {
-    if (this.formMovimentacao.valid) {
-      this.service.createMovimentacao(this.formMovimentacao.value).subscribe(() => {
-        this.notificacaoService.success('Lista adicionada com sucesso!')
-        this.getMovimentacoes();
-        this.formMovimentacao.reset();
-          }, error => {
-            this.notificacaoService.error('Erro ao adicionar lista de movimentações.');
-      });
-    } else {
-      this.notificacaoService.error('Por favor, preencha todos os campos obrigatórios.');
-    }
-  }
+  const movimentacao = this.formMovimentacao.value;
+  this.service.createMovimentacao(movimentacao).subscribe(() => {
+    this.formMovimentacao.reset();
+    this.displayDialog = false;
+    // lógica para atualizar a lista de produtos na página
+    this.getMovimentacoes();
+  });
+}
 
   getMovimentacoes(): void {
-    this.service.getMovimentacoes()
-      .subscribe(movimentacoes => this.movimentacoes = movimentacoes);
+    this.service.getMovimentacoes().subscribe(
+      (movimentacoes) => {
+          this.movimentacoes = movimentacoes;
+       });
   }
 
-  fecharDialog() {
+
+  cancel() {
+    this.formMovimentacao.reset();
     this.displayDialog = false;
-  this.formMovimentacao.reset();
   }
 
 }
