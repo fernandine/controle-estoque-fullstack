@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 import { Movimentacao } from 'src/app/common/movimentacao';
 import { MovimentacaoService } from 'src/app/service/movimentacao.service';
 import { DetalheMovimentacaoComponent } from '../detalhe-movimentacao/detalhe-movimentacao.component';
@@ -11,10 +12,10 @@ import { DetalheMovimentacaoComponent } from '../detalhe-movimentacao/detalhe-mo
 export class ListaMovimentacaoComponent implements OnInit {
 
   @ViewChild(DetalheMovimentacaoComponent) appDetalhe!: DetalheMovimentacaoComponent ;
-
+  movimentacao: Movimentacao = new Movimentacao();
   exibirDetalhes: boolean = false;
   movimentacoes: Movimentacao[] = [];
-  movimentacao!: Movimentacao;
+
 
   constructor(private movimentacaoService: MovimentacaoService) {}
 

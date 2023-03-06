@@ -10,7 +10,7 @@
     </div>
     <div class="p-field">
       <label for="data">Data*</label>
-      <p-calendar formControlName="data" [showIcon]="true" dateFormat="dd/mm/yy" valueFormat="dd/mm/yy"></p-calendar>
+      <p-inputMask mask="99/99/9999" formControlName="data" placeholder="99/99/9999" slotChar="dd/MM/yyyy"></p-inputMask>
     </div>
     <div class="p-field">
       <label for="quantidade">Quantidade</label>
