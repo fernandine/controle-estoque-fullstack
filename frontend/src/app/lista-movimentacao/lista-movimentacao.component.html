@@ -1,20 +1,20 @@
 <p-table #dt [value]="movimentacoes" dataKey="id" [paginator]="true" [rows]="6" [responsive]="true"[rowHover]="true" [showCurrentPageReport]="true"
-[filterDelay]="0" [globalFilterFields]="['produtoId','periodo','tipoMovimento']">
+[filterDelay]="0" [globalFilterFields]="['produtoId','data','tipoMovimento']">
   <ng-template pTemplate="header">
     <tr>
-      <th pSortableColumn="produtoId" style="min-width: 8rem">
+      <th pSortableColumn="produto" style="min-width: 8rem">
         <div class="text-orange-500 flex justify-content-between align-items-center">
             Produto
-            <p-sortIcon field="produtoId"></p-sortIcon>
-            <p-columnFilter type="text" field="produtoId" display="menu" class="ml-auto"></p-columnFilter>
+            <p-sortIcon field="produto"></p-sortIcon>
+            <p-columnFilter type="text" field="produto" display="menu" class="ml-auto"></p-columnFilter>
         </div>
       </th>
 
-      <th pSortableColumn="periodo" style="min-width: 8rem">
+      <th pSortableColumn="data" style="min-width: 8rem">
         <div class="text-orange-500 flex justify-content-between align-items-center">
             Data do Movimento
-            <p-sortIcon field="periodo"></p-sortIcon>
-            <p-columnFilter type="text" field="periodo" display="menu" class="ml-auto"></p-columnFilter>
+            <p-sortIcon field="data"></p-sortIcon>
+            <p-columnFilter type="text" field="data" display="menu" class="ml-auto"></p-columnFilter>
         </div>
       </th>
       <th pSortableColumn="tipoMovimento" style="min-width:14rem">
@@ -42,7 +42,7 @@
   </ng-template>
   <ng-template pTemplate="body" let-dado>
     <tr>
-      <td>{{dado.produtoId}}</td>
+      <td>{{dado.produto}}</td>
       <td>{{dado.data}}</td>
       <td>{{dado.tipoMovimento}}</td>
       <td>{{dado.documento}}</td>

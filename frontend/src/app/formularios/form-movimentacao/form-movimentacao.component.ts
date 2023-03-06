@@ -1,11 +1,11 @@
 import { Movimentacao } from './../../common/movimentacao';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 import { MovimentacaoService } from 'src/app/service/movimentacao.service';
 
 import { TipoMovimento } from '../../common/tipoMovimento';
-import { NotificacaoService } from '../../service/notificacao.service';
+import { Produto } from '../../common/produto';
+import { ProdutoService } from '../../service/produto.service';
 
 
 @Component({
@@ -18,6 +18,9 @@ export class FormMovimentacaoComponent implements OnInit {
   formMovimentacao!: FormGroup;
   displayDialog: boolean = false;
 
+  produto = new Produto;
+  produto$: Produto[] = [];
+
   tipoMovimento = [
     { label: TipoMovimento.ENTRADA, value: TipoMovimento.ENTRADA },
     { label: TipoMovimento.SAIDA, value: TipoMovimento.SAIDA },
@@ -26,14 +29,16 @@ export class FormMovimentacaoComponent implements OnInit {
     { label: TipoMovimento.AJUSTE_SAIDA, value: TipoMovimento.AJUSTE_SAIDA }
   ];
 
+
   constructor(
     private fb: FormBuilder,
     private service: MovimentacaoService,
+    private produtoService: ProdutoService
     ) { }
 
   ngOnInit(): void {
     this.formMovimentacao = this.fb.group({
-      produtoId: [0, Validators.required],
+      produto: ['', Validators.required],
       tipoMovimento: ['', Validators.required],
       quantidade: [0, Validators.required],
       data: ['', Validators.required],
@@ -43,6 +48,7 @@ export class FormMovimentacaoComponent implements OnInit {
       situacao: ['', Validators.required]
     });
 this.getMovimentacoes();
+this.getProdutos();
   }
 
   insertMovimentacao() {
@@ -61,6 +67,13 @@ this.getMovimentacoes();
           this.movimentacoes = movimentacoes;
        });
   }
+
+  getProdutos(): void {
+    this.produtoService.getProduto().subscribe(
+    (produtos) => {
+    this.produto$ = produtos;
+    });
+    }
 
 
   cancel() {

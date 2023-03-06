@@ -12,7 +12,9 @@ import { DetalheMovimentacaoComponent } from '../detalhe-movimentacao/detalhe-mo
 export class ListaMovimentacaoComponent implements OnInit {
 
   @ViewChild(DetalheMovimentacaoComponent) appDetalhe!: DetalheMovimentacaoComponent ;
-  movimentacao: Movimentacao = new Movimentacao();
+
+  movimentacao = new Movimentacao();
+
   exibirDetalhes: boolean = false;
   movimentacoes: Movimentacao[] = [];
 

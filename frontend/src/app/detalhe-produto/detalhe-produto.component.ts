@@ -1,10 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { Dialog } from 'primeng/dialog';
-import { switchMap, tap } from 'rxjs';
+import { Component, Input} from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Produto } from '../common/produto';
-import { ProdutoService } from '../service/produto.service';
 
 @Component({
   selector: 'app-detalhe-produto',

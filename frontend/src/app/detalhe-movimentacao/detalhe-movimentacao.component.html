@@ -1,4 +1,4 @@
-<ng-container *ngIf="movimentacao">
+<div *ngIf="movimentacao">
 
   <div class="font-medium text-3xl text-900 mb-3">Detalhes dos Lançamentos</div>
   <div class="text-500 mb-5">Para editar os campos, clique no ícone ao lado.</div>
@@ -15,7 +15,8 @@
           <div class="text-500 w-6 md:w-2 font-medium">Data do Lançamento</div>
           <div class="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">
             <span *ngIf="!editandoData">{{movimentacao.data}}</span>
-            <input *ngIf="editandoData" type="text" pInputText [(ngModel)]="movimentacao.data" />
+            <p-inputMask *ngIf="editandoData" mask="99/99/9999" [(ngModel)]="movimentacao.data" placeholder="99/99/9999" slotChar="dd/mm/yyyy"></p-inputMask>
+
           </div>
           <div class="w-6 md:w-2 flex justify-content-end">
               <button pButton pRipple label="Edit" icon="pi pi-pencil" class="p-button-text" (click)="editField('data')"></button>
@@ -79,7 +80,7 @@
 
   </ul>
 
-</ng-container>
+</div>
 
 
 

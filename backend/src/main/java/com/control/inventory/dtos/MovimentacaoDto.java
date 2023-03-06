@@ -31,7 +31,7 @@ public class MovimentacaoDto implements Serializable {
     @Positive(message ="Preço deve ser positivo")
     private Integer quantidade;
     @PastOrPresent(message="A data não pode ser futura")
-    @JsonFormat(pattern="dd/mm/yyyy")
+    @JsonFormat(pattern="dd/MM/yyyy")
     private Date data;
     private String motivo;
     private String documento;

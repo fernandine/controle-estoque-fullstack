@@ -1,6 +1,5 @@
-import { Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Dialog } from 'primeng/dialog';
 import { Movimentacao } from '../common/movimentacao';
 
 @Component({
@@ -9,7 +8,7 @@ import { Movimentacao } from '../common/movimentacao';
 })
 export class DetalheMovimentacaoComponent implements OnInit {
 
-  @Input() movimentacao?: Movimentacao;
+  @Input() movimentacao!: Movimentacao;
 
   editandoData: boolean = false;
   editandoTipoMovimento: boolean = false;
