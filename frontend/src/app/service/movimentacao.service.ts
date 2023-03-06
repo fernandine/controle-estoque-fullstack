@@ -22,12 +22,12 @@ export class MovimentacaoService {
   }
 
   updateMovimentacao(movimentacao: Movimentacao): Observable<Movimentacao> {
-    const url = `${this.apiUrl}/${movimentacao.produtoId}`;
+    const url = `${this.apiUrl}/${movimentacao.id}`;
     return this.http.put<Movimentacao>(url, movimentacao);
   }
 
   deleteMovimentacao(movimentacao: Movimentacao): Observable<Movimentacao> {
-    const url = `${this.apiUrl}/${movimentacao.produtoId}`;
+    const url = `${this.apiUrl}/${movimentacao.id}`;
     return this.http.delete<Movimentacao>(url);
   }
 

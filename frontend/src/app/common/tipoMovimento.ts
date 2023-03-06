@@ -1,8 +1,8 @@
 export enum TipoMovimento {
 
-  ENTRADA = 'Entrada',
-  SAIDA = 'Saída',
-  SALDO_INICIAL = 'Saldo Inicial',
-  AJUSTE_ENTRADA = 'Ajuste de Entrada',
-  AJUSTE_SAIDA = 'Ajuste de Saída'
+  ENTRADA = 'ENTRADA',
+  SAIDA = 'SAIDA',
+  SALDO_INICIAL = 'SALDO_INICIAL',
+  AJUSTE_ENTRADA = 'AJUSTE_ENTRADA',
+  AJUSTE_SAIDA = 'AJUSTE_SAIDA'
 }

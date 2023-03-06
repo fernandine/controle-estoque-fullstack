@@ -16,12 +16,11 @@ export class ListaMovimentacaoComponent implements OnInit {
   movimentacoes: Movimentacao[] = [];
   movimentacao!: Movimentacao;
 
-  constructor(private movimentacaoService: MovimentacaoService,
-    private route: ActivatedRoute) {}
+  constructor(private movimentacaoService: MovimentacaoService) {}
 
   ngOnInit(): void {
     this.getMovimentacoes();
-    const id = this.route.snapshot.paramMap.get('id');
+
   }
 
   getMovimentacoes(): void {
@@ -41,5 +40,4 @@ excluirProduto(movimentacao: Movimentacao): void {
       this.movimentacoes.splice(index, 1);
     }
   }
-
 }

@@ -14,8 +14,6 @@ export class DetalheProdutoComponent {
 
    @Input() produto!: Produto;
 
-  @ViewChild('editNomeModal') editNomeModal!: Dialog;
-
   editandoNome: boolean = false;
   editandoCodigo: boolean = false;
   editandoQuantidade: boolean = false;

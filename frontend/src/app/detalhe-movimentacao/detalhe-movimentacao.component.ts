@@ -11,25 +11,28 @@ export class DetalheMovimentacaoComponent implements OnInit {
 
   @Input() movimentacao!: Movimentacao;
 
-  @ViewChild('editNomeModal') editNomeModal!: Dialog;
-
   editandoData: boolean = false;
   editandoTipoMovimento: boolean = false;
   editandoDocumento: boolean = false;
   editandoQuantidade: boolean = false;
   editandoMotivo: boolean = false;
   editandoSaldo: boolean = false;
+  editandoProduto: boolean = false;
 
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.movimentacao = data['movimentacao'];
+      console.log(this.movimentacao);
     });
   }
 
   editField(field: string) {
     switch(field) {
+      case 'produto':
+        this.editandoProduto = true;
+        break;
       case 'data':
         this.editandoData = true;
         break;
@@ -53,6 +56,9 @@ export class DetalheMovimentacaoComponent implements OnInit {
 
   cancelEdit(field: string) {
     switch(field) {
+      case 'produto':
+        this.editandoProduto = false;
+        break;
       case 'data':
         this.editandoData = false;
         break;

@@ -1,15 +1,14 @@
 package com.control.inventory.entities;
 
-import com.control.inventory.entities.enums.StatusMovimento;
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.control.inventory.entities.enums.TipoMovimento;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
-
 import java.math.BigDecimal;
-import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -26,9 +25,9 @@ public class Movimentacao implements Serializable {
     private Long id;
 
     @JoinColumn(name = "tipo_movimento")
-    private StatusMovimento tipoMovimento;
+    private TipoMovimento tipoMovimento;
     private Integer quantidade;
-    @JsonFormat(pattern="dd/MM/yyyy")
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date data;
     private String motivo;
     private String documento;

@@ -3,7 +3,7 @@ package com.control.inventory.services;
 import com.control.inventory.dtos.MovimentacaoDto;
 import com.control.inventory.entities.Movimentacao;
 import com.control.inventory.entities.Produto;
-import com.control.inventory.entities.enums.StatusMovimento;
+import com.control.inventory.entities.enums.TipoMovimento;
 import com.control.inventory.repositories.MovimentoEstoqueRepository;
 import com.control.inventory.services.exceptions.DatabaseException;
 import com.control.inventory.services.exceptions.ResourceNotFoundException;
@@ -34,7 +34,7 @@ public class MovimentacaoService {
     }
 
     @Transactional(readOnly = true)
-    public Page<MovimentacaoDto> findByTipoMovimento(StatusMovimento tipoMovimento, Pageable pageable) {
+    public Page<MovimentacaoDto> findByTipoMovimento(TipoMovimento tipoMovimento, Pageable pageable) {
         Page<Movimentacao> page = repository.findByTipoMovimento(tipoMovimento, pageable);
         return page.map(MovimentacaoDto::new);
     }

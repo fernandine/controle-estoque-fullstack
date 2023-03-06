@@ -1,7 +1,7 @@
 package com.control.inventory.controllers;
 
 import com.control.inventory.dtos.MovimentacaoDto;
-import com.control.inventory.entities.enums.StatusMovimento;
+import com.control.inventory.entities.enums.TipoMovimento;
 import com.control.inventory.services.MovimentacaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -30,7 +30,7 @@ public class MovimentacaoController {
 
     @GetMapping("/filtrar")
     public ResponseEntity<Page<MovimentacaoDto>> findByTipoMovimento(
-            @RequestParam(value = "tipo") StatusMovimento tipoMovimento,
+            @RequestParam(value = "tipo") TipoMovimento tipoMovimento,
             Pageable pageable) {
 
         Page<MovimentacaoDto> page = service.findByTipoMovimento(tipoMovimento, pageable);

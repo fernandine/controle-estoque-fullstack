@@ -1,11 +1,11 @@
 package com.control.inventory.entities.enums;
 
-public enum StatusMovimento {
+public enum TipoMovimento {
 
     ENTRADA,
-    SAÍDA,
+    SAIDA,
     SALDO_INICIAL,
     AJUSTE_ENTRADA,
-    AJUSTE_SAÍDA
+    AJUSTE_SAIDA
 
 }

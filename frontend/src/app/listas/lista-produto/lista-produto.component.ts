@@ -1,15 +1,10 @@
 import { ProdutoService } from './../../service/produto.service';
 import {
   Component,
-  EventEmitter,
   OnInit,
-  Output,
   ViewChild,
 } from '@angular/core';
-import { FormProdutoComponent } from 'src/app/formularios/form-produto/form-produto.component';
 import { Produto } from 'src/app/common/produto';
-import { ActivatedRoute, Router } from '@angular/router';
-import { SharedService } from 'src/app/service/shared.service';
 import { DetalheProdutoComponent } from '../../detalhe-produto/detalhe-produto.component';
 
 @Component({
@@ -26,12 +21,10 @@ export class ListaProdutoComponent implements OnInit {
   exibirDetalhes: boolean = false;
 
   constructor(
-    private produtoService: ProdutoService,
-    private route: ActivatedRoute) {}
+    private produtoService: ProdutoService) {}
 
   ngOnInit(): void {
     this.getProdutos();
-    const id = this.route.snapshot.paramMap.get('id');
   }
 
   getProdutos(): void {
