@@ -20,7 +20,7 @@ export class MovimentacaoService {
   createMovimentacao(movimentacao: Movimentacao): Observable<Movimentacao> {
     return this.http.post<Movimentacao>(this.apiUrl, movimentacao);
   }
-
+/*
   updateMovimentacao(movimentacao: Movimentacao): Observable<Movimentacao> {
     const url = `${this.apiUrl}/${movimentacao.id}`;
     return this.http.put<Movimentacao>(url, movimentacao);
@@ -34,5 +34,5 @@ export class MovimentacaoService {
   MovimentacaoPorId(id: number): Observable<Movimentacao> {
     return this.http.get<Movimentacao>(`${this.apiUrl}/${id}`);
   }
-
+*/
 }

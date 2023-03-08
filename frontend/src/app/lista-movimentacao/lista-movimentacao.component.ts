@@ -1,6 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
 import { Movimentacao } from 'src/app/common/movimentacao';
 import { MovimentacaoService } from 'src/app/service/movimentacao.service';
 import { DetalheMovimentacaoComponent } from '../detalhe-movimentacao/detalhe-movimentacao.component';
@@ -18,15 +16,13 @@ export class ListaMovimentacaoComponent implements OnInit {
   exibirDetalhes: boolean = false;
   movimentacoes: Movimentacao[] = [];
 
-
   constructor(private movimentacaoService: MovimentacaoService) {}
 
   ngOnInit(): void {
-    this.getMovimentacoes();
-
+    this.listarMovimentacoes();
   }
 
-  getMovimentacoes(): void {
+  listarMovimentacoes(): void {
     this.movimentacaoService.getMovimentacoes().subscribe((movimentacoes) => {
       this.movimentacoes = movimentacoes;
     });
@@ -37,7 +33,7 @@ export class ListaMovimentacaoComponent implements OnInit {
     this.exibirDetalhes = true;
   }
 
-excluirProduto(movimentacao: Movimentacao): void {
+excluirMovimentacao(movimentacao: Movimentacao): void {
     const index = this.movimentacoes.findIndex(p => p === movimentacao);
     if (index !== -1) {
       this.movimentacoes.splice(index, 1);

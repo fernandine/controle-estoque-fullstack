@@ -1,5 +1,3 @@
-import { ThisReceiver } from "@angular/compiler";
-
 export class Produto {
   id?: any;
   nome?: string;
@@ -8,10 +6,11 @@ export class Produto {
   saldoInicial?: number;
 
 constructor(
+  id?: any,
   nome: string = '',
   codigo: string = '',
   quantidadeMinima: number = 0,
-  id?: any
+
 ) {
   this.id = id;
   this.nome = nome;

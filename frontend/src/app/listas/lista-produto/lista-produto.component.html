@@ -6,25 +6,23 @@
       <th>Nome</th>
       <th>Quantidade Mínima</th>
       <th>Saldo Inicial</th>
-
     </tr>
   </ng-template>
-  <ng-template pTemplate="body" let-produto>
+  <ng-template pTemplate="body" let-dado>
     <tr>
-      <td>{{ produto.id }}</td>
-      <td>{{ produto.codigo }}</td>
-      <td>{{ produto.nome }}</td>
-      <td>{{ produto.quantidadeMinima }}</td>
-      <td>{{ produto.saldoInicial | currency: "BRL" }}</td>
+      <td>{{ dado.id }}</td>
+      <td>{{ dado.codigo }}</td>
+      <td>{{ dado.nome }}</td>
+      <td>{{ dado.quantidadeMinima }}</td>
+      <td>{{ dado.saldoInicial | currency: "BRL" }}</td>
       <td>
-        <button pButton class="mr-6" type="button" label="Detalhes" icon="pi pi-search" (click)="mostrarDetalhes(produto)"></button>
-        <button pButton class="p-button-danger" type="button" label="Excluir" icon="pi pi-trash" (click)="excluirProduto(produto)"></button>
-
+        <button pButton class="mr-6" type="button" label="Detalhes" icon="pi pi-search" (click)="mostrarDetalhes(dado)"></button>
+        <button pButton class="p-button-danger" type="button" label="Excluir" icon="pi pi-trash" (click)="excluirProduto(dado)"></button>
       </td>
     </tr>
   </ng-template>
 </p-table>
 
 <p-dialog [(visible)]="exibirDetalhes" appendTo="body" [modal]="true" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '52vw'}" [draggable]="false" [resizable]="false">
-  <app-detalhe-produto></app-detalhe-produto>
+  <app-detalhe-produto [produto]="produto"></app-detalhe-produto>
 </p-dialog>

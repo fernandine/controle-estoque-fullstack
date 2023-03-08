@@ -17,12 +17,6 @@ export class DetalheProdutoComponent {
 
   constructor(private route: ActivatedRoute) { }
 
-  ngOnInit() {
-    this.route.data.subscribe(data => {
-      this.produto = data['produto'];
-    });
-  }
-
   editField(field: string) {
     switch(field) {
       case 'nome':

@@ -53,10 +53,11 @@ public class MovimentacaoService {
         copyDtoToEntity(dto, entity);
 
         Produto produto = new Produto();
-        produto.setId(dto.getProdutoId());
-        entity.setProduto(produto);
+            produto.setId(dto.getProdutoId());
+            entity.setProduto(produto);
 
-        entity = repository.save(entity);
+            entity = repository.save(entity);
+
         return new MovimentacaoDto(entity);
     }
 

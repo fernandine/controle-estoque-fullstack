@@ -1,7 +1,9 @@
 import { ProdutoService } from './../../service/produto.service';
 import {
   Component,
+  EventEmitter,
   OnInit,
+  Output,
   ViewChild,
 } from '@angular/core';
 import { Produto } from 'src/app/common/produto';
@@ -16,7 +18,6 @@ export class ListaProdutoComponent implements OnInit {
   @ViewChild(DetalheProdutoComponent) appDetalhe!: DetalheProdutoComponent ;
 
   produtos: Produto[] = [];
-
   produto!: Produto;
   exibirDetalhes: boolean = false;
 
@@ -24,10 +25,10 @@ export class ListaProdutoComponent implements OnInit {
     private produtoService: ProdutoService) {}
 
   ngOnInit(): void {
-    this.getProdutos();
+    this.listarProdutos();
   }
 
-  getProdutos(): void {
+  listarProdutos(): void {
     this.produtoService.getProduto().subscribe((produtos) => {
       this.produtos = produtos;
     });
@@ -44,4 +45,5 @@ excluirProduto(produto: Produto): void {
       this.produtos.splice(index, 1);
     }
   }
+
 }

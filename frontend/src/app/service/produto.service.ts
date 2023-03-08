@@ -22,7 +22,7 @@ export class ProdutoService {
   createProduto(produto: Produto): Observable<Produto> {
     return this.http.post<Produto>(this.apiUrl, produto);
   }
-
+/*
   updateProduto(produto: Produto): Observable<Produto> {
     const url = `${this.apiUrl}/${produto.id}`;
     return this.http.put<Produto>(url, produto);
@@ -36,6 +36,6 @@ export class ProdutoService {
   produtoPorId(id: number): Observable<Produto> {
     return this.http.get<Produto>(`${this.apiUrl}/${id}`);
   }
-
+*/
 
 }

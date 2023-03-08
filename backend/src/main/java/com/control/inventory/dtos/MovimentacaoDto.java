@@ -1,6 +1,7 @@
 package com.control.inventory.dtos;
 
 import com.control.inventory.entities.Movimentacao;
+import com.control.inventory.entities.Produto;
 import com.control.inventory.entities.enums.TipoMovimento;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -25,7 +26,6 @@ import java.util.Date;
 @AllArgsConstructor
 public class MovimentacaoDto implements Serializable {
 
-    @JsonIgnore
     private Long id;
     private TipoMovimento tipoMovimento;
     @Positive(message ="Preço deve ser positivo")
@@ -54,4 +54,6 @@ public class MovimentacaoDto implements Serializable {
         saldo = entity.getSaldo();
         situacao = entity.getSituacao();
     }
+
+
 }

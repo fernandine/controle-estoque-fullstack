@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Movimentacao } from '../common/movimentacao';
 
@@ -6,7 +6,7 @@ import { Movimentacao } from '../common/movimentacao';
   selector: 'app-detalhe-movimentacao',
   templateUrl: './detalhe-movimentacao.component.html'
 })
-export class DetalheMovimentacaoComponent implements OnInit {
+export class DetalheMovimentacaoComponent {
 
   @Input() movimentacao!: Movimentacao;
 
@@ -20,12 +20,6 @@ export class DetalheMovimentacaoComponent implements OnInit {
 
   constructor(private route: ActivatedRoute) { }
 
-  ngOnInit() {
-    this.route.data.subscribe(data => {
-      this.movimentacao = data['movimentacao'];
-      console.log(this.movimentacao);
-    });
-  }
 
   editField(field: string) {
     switch(field) {
