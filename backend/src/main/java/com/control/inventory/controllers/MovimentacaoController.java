@@ -1,8 +1,14 @@
 package com.control.inventory.controllers;
 
 import com.control.inventory.dtos.MovimentacaoDto;
+import com.control.inventory.dtos.ProdutoDto;
+import com.control.inventory.entities.Movimentacao;
+import com.control.inventory.entities.Produto;
 import com.control.inventory.entities.enums.TipoMovimento;
+import com.control.inventory.repositories.MovimentoEstoqueRepository;
+import com.control.inventory.repositories.ProdutoRepository;
 import com.control.inventory.services.MovimentacaoService;
+import com.control.inventory.services.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,6 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/movimentacoes")
@@ -21,6 +28,12 @@ public class MovimentacaoController {
 
     @Autowired
     private MovimentacaoService service;
+
+    @Autowired
+    private ProdutoRepository produtoRepository;
+
+    @Autowired
+    private MovimentoEstoqueRepository repository;
 
     @GetMapping
     public ResponseEntity<List<MovimentacaoDto>> findAll() {
@@ -42,7 +55,6 @@ public class MovimentacaoController {
         MovimentacaoDto dto = service.findById(id);
         return ResponseEntity.ok().body(dto);
     }
-
 
     @PostMapping
     //@PreAuthorize("hasRole('ROLE_GERENTE')")

@@ -1,13 +1,13 @@
 package com.control.inventory.dtos;
 
 import com.control.inventory.entities.Produto;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 @Getter
 @Setter
@@ -20,7 +20,7 @@ public class ProdutoDto implements Serializable {
     private String codigo;
     private String nome;
     private Long quantidadeMinima;
-    private Double saldoInicial;
+    private Long saldoInicial;
 
     public ProdutoDto(Produto entity) {
         id = entity.getId();
@@ -28,6 +28,6 @@ public class ProdutoDto implements Serializable {
         nome = entity.getNome();
         quantidadeMinima = entity.getQuantidadeMinima();
         saldoInicial = entity.getSaldoInicial();
-
     }
+
 }

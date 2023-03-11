@@ -1,5 +1,6 @@
 package com.control.inventory.entities;
 
+import com.control.inventory.dtos.MovimentacaoDto;
 import com.control.inventory.entities.enums.TipoMovimento;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -18,7 +19,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Movimentacao implements Serializable {
+public class Movimentacao extends MovimentacaoDto implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,7 +37,7 @@ public class Movimentacao implements Serializable {
 
     private String situacao;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne//(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "produto_id")
     private Produto produto;
 

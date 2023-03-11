@@ -16,13 +16,9 @@
       <td>{{ dado.quantidadeMinima }}</td>
       <td>{{ dado.saldoInicial | currency: "BRL" }}</td>
       <td>
-        <button pButton class="mr-6" type="button" label="Detalhes" icon="pi pi-search" (click)="mostrarDetalhes(dado)"></button>
+        <button pButton class="mr-6" type="button" label="Detalhes" icon="pi pi-search" (click)="verDetalhes(dado.id)"></button>
         <button pButton class="p-button-danger" type="button" label="Excluir" icon="pi pi-trash" (click)="excluirProduto(dado)"></button>
       </td>
     </tr>
   </ng-template>
 </p-table>
-
-<p-dialog [(visible)]="exibirDetalhes" appendTo="body" [modal]="true" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '52vw'}" [draggable]="false" [resizable]="false">
-  <app-detalhe-produto [produto]="produto"></app-detalhe-produto>
-</p-dialog>

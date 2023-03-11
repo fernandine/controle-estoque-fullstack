@@ -1,10 +1,10 @@
 package com.control.inventory.entities;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
@@ -25,7 +25,7 @@ public class Produto implements Serializable {
     @JoinColumn(name = "quantidade_minima")
     private Long quantidadeMinima;
     @JoinColumn(name = "saldo_inicial")
-    private Double saldoInicial;
+    private Long saldoInicial;
 
     @OneToMany(mappedBy = "produto")
     private List<Movimentacao> movimentacoes;

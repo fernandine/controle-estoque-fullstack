@@ -16,7 +16,6 @@ export class FormMovimentacaoComponent implements OnInit {
   movimentacoes: Movimentacao[] = [];
   formMovimentacao!: FormGroup;
   displayDialog: boolean = false;
-  selectedProdutoControl = new FormControl(null, Validators.required);
   listaProduto: Produto[] = [];
   selectedProduto: any;
 
@@ -37,7 +36,7 @@ export class FormMovimentacaoComponent implements OnInit {
 
   ngOnInit(): void {
     this.formMovimentacao = this.fb.group({
-      listaProduto: this.selectedProdutoControl,
+      produtoId: [0],
       tipoMovimento: ['', Validators.required],
       quantidade: [0, Validators.required],
       data: ['', Validators.required],
@@ -51,7 +50,7 @@ this.getProdutos();
 }
 
 getProdutos(): void {
-  this.produtoService.getProduto().subscribe((produtos) => {
+  this.produtoService.getProdutos().subscribe((produtos) => {
     this.listaProduto = produtos;
   });
 }
@@ -63,9 +62,48 @@ getProdutos(): void {
        });
   }
 
+  //Implementação da validação das regras de negócio no método insertMovimentacao(),
+  //antes de chamar o serviço createMovimentacao():
   insertMovimentacao(): void {
     const movimentacao = this.formMovimentacao.value;
-    movimentacao.produto = this.selectedProduto;
+
+    // Verificar se o produto já possui um lançamento de saldo inicial
+    const hasSaldoInicial = this.movimentacoes.some(mov =>
+      mov.produtoId === movimentacao.produtoId && mov.tipoMovimento === TipoMovimento.SALDO_INICIAL
+    );
+
+    // Verificar se o produto já possui movimentações
+    const hasMovimentacoes = this.movimentacoes.some(mov =>
+      mov.produtoId === movimentacao.produtoId && mov.tipoMovimento !== TipoMovimento.SALDO_INICIAL
+    );
+
+    // Verificar se a quantidade movimentada é válida
+    const saldoAtual = this.calcularSaldo(movimentacao.produtoId);
+    if (movimentacao.tipoMovimento === TipoMovimento.SAIDA && movimentacao.quantidade > saldoAtual) {
+      alert('A quantidade movimentada não pode ser maior que o saldo atual do produto.');
+      return;
+    }
+
+    // Verificar se é permitido lançamento de saldo inicial
+    if (movimentacao.tipoMovimento === TipoMovimento.SALDO_INICIAL) {
+      if (hasSaldoInicial) {
+        alert('Já existe um lançamento de saldo inicial para esse produto.');
+        return;
+      }
+      if (hasMovimentacoes) {
+        alert('Não é permitido lançamento de saldo inicial para um produto que já possui movimentações.');
+        return;
+      }
+    }
+
+    // Verificar se é permitido lançamento de ajuste
+    if (movimentacao.tipoMovimento === TipoMovimento.AJUSTE_ENTRADA || movimentacao.tipoMovimento === TipoMovimento.AJUSTE_SAIDA) {
+      if (!hasMovimentacoes) {
+        alert('Não é permitido lançamento de ajuste para um produto que não possui movimentações.');
+        return;
+      }
+    }
+
     this.service.createMovimentacao(movimentacao).subscribe(() => {
       this.formMovimentacao.reset();
       this.selectedProduto = null;
@@ -73,6 +111,7 @@ getProdutos(): void {
       this.getMovimentacoes();
     });
   }
+
 
   cancel() {
     this.formMovimentacao.reset();
@@ -85,4 +124,61 @@ getProdutos(): void {
     const tipoMovimento = this.formMovimentacao.controls['tipoMovimento'].value;
     this.showDocumento = tipoMovimento === 'ENTRADA' || tipoMovimento === 'SAIDA';
   }
+
+  //função para verificar se já existe uma movimentação de saldo inicial para o produto:
+  private hasSaldoInicial(produtoId: number): boolean {
+    return this.movimentacoes.some(m => m.produtoId === produtoId && m.tipoMovimento === TipoMovimento.SALDO_INICIAL);
+  }
+
+  //função para verificar se existem outras movimentações para o produto
+  private hasMovimentacoes(produtoId: number): boolean {
+    return this.movimentacoes.some(m => m.produtoId === produtoId && m.tipoMovimento !== TipoMovimento.SALDO_INICIAL);
+  }
+
+  //validação para verificar se o saldo do produto não ficará negativo
+  private hasSaldoNegativo(produtoId: number, quantidade: number): boolean {
+    const movimentacoes = this.movimentacoes.filter(m => m.produtoId === produtoId);
+    const saldo = movimentacoes.reduce((prev, curr) => {
+      switch (curr.tipoMovimento) {
+        case TipoMovimento.ENTRADA:
+        case TipoMovimento.AJUSTE_ENTRADA:
+          return prev + curr.quantidade;
+        case TipoMovimento.SAIDA:
+        case TipoMovimento.AJUSTE_SAIDA:
+          return prev - curr.quantidade;
+        case TipoMovimento.SALDO_INICIAL:
+          return curr.quantidade;
+        default:
+          return prev;
+      }
+    }, 0);
+    return saldo + quantidade < 0;
+  }
+/*
+  //validação para permitir apenas movimentações com data posterior à criação do produto:
+  private isDataValida(produtoId: number, data: Date): boolean {
+    const produto = this.listaProduto.find(p => p.id === produtoId);
+    return produto! && data >= produto.dataCriacao;
+  }*/
+
+  //função para calcular o saldo considerando as movimentações anteriores
+  private calcularSaldo(produtoId: number): number {
+    const movimentacoes = this.movimentacoes.filter(m => m.produtoId === produtoId);
+    return movimentacoes.reduce((prev, curr) => {
+      switch (curr.tipoMovimento) {
+        case TipoMovimento.ENTRADA:
+        case TipoMovimento.AJUSTE_ENTRADA:
+          return prev + curr.quantidade;
+        case TipoMovimento.SAIDA:
+        case TipoMovimento.AJUSTE_SAIDA:
+          return prev - curr.quantidade;
+        case TipoMovimento.SALDO_INICIAL:
+          return curr.quantidade;
+        default:
+          return prev;
+      }
+    }, 0);
+  }
+
+
 }

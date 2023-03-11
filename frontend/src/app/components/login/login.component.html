@@ -1,69 +1,66 @@
-<form
-  *ngIf="!isLoggedIn"
-  name="form"
-  (ngSubmit)="f.form.valid && onSubmit()"
-  #f="ngForm"
-  novalidate
->
-  <!--INPUT USERNAME-->
-  <label for="username" class="block text-900 text-xl font-medium mb-2"
-    >Username</label
+<div class="py-3">
+  <h1 class="text-center">Login</h1>
+  <form
+    *ngIf="!isLoggedIn"
+    name="form"
+    (ngSubmit)="f.form.valid && onSubmit()"
+    #f="ngForm"
+    novalidate
   >
-  <input
-    pInputText
-    style="padding: 1rem"
-    class="w-full md:w-30rem mb-5"
-    name="username"
-    [(ngModel)]="form.username"
-    required
-    #username="ngModel"
-    [ngClass]="{ 'is-invalid': f.submitted && username.errors }"
-  />
-  <div *ngIf="username.errors && f.submitted" class="invalid-feedback">
-    Username is required!
-  </div>
-  <!--INPUT PASSWORD-->
-  <label for="password" class="block text-900 font-medium text-xl mb-2"
-    >Password</label
-  >
-  <p-password
-    inputId="password"
-    name="password"
-    placeholder="Password"
-    [toggleMask]="true"
-    styleClass="mb-5"
-    inputStyleClass="w-full p-3 md:w-30rem"
-    [(ngModel)]="form.password"
-    required
-    #password="ngModel"
-    [ngClass]="{ 'is-invalid': f.submitted && password.errors }"
-  ></p-password>
-
-  <div *ngIf="password.errors && f.submitted" class="invalid-feedback">
-    <div *ngIf="password.errors['required']">Password is required</div>
-    <div *ngIf="password.errors['minlength']">
-      Password must be at least 6 characters
+    <div class="p-fluid">
+      <!--INPUT USERNAME-->
+      <div class="p-field">
+        <label for="username">Username</label>
+        <input
+          pInputText
+          name="username"
+          [(ngModel)]="form.username"
+          required
+          #username="ngModel"
+          [ngClass]="{ 'p-invalid': f.submitted && username.invalid }"
+        />
+        <div *ngIf="username.invalid" class="p-error">
+          Username is required!
+        </div>
+      </div>
+      <!--INPUT PASSWORD-->
+      <div class="p-field">
+        <label for="password">Password</label>
+        <span class="p-float-label">
+          <p-password
+            inputId="password"
+            name="password"
+            placeholder="Password"
+            [toggleMask]="true"
+            [(ngModel)]="form.password"
+            required
+            #password="ngModel"
+            [ngClass]="{ 'p-invalid': f.submitted && password.invalid }"
+          ></p-password>
+        </span>
+        <!--
+        <div *ngIf="password.invalid" class="p-error">
+          <div *ngIf="password.errors['required']">Password is required</div>
+          <div *ngIf="password.errors['minlength']">
+            Password must be at least 6 characters
+          </div>
+        </div>
+        -->
+      </div>
+      <button
+        pButton
+        pRipple
+        label="Entrar"
+        routerLink="/login"
+        class="mt-8 p-button-rounded p-button-lg p-button-secondary"
+      ></button>
     </div>
-  </div>
-
-  <button
-    pButton
-    pRipple
-    label="Sign In"
-    routerLink="/home"
-    class="w-full p-3 text-xl"
-  ></button>
-
-  <div
-    *ngIf="f.submitted && isLoginFailed"
-    class="alert alert-danger"
-    role="alert"
-  >
-    Login failed: {{ errorMessage }}
-  </div>
-</form>
-<p-message
-  *ngIf="isLoggedIn"
-  severity="success"
-  text="Logged in as {{ roles }}"
-></p-message>
+    <div
+      *ngIf="f.submitted && isLoginFailed"
+      class="p-messages p-messages-error"
+    >
+      Login failed: {{ errorMessage }}
+    </div>
+  </form>
+  <p-messages *ngIf="showSuccessMessage" severity="success" [value]="[{ summary: 'Logged in as {{ roles }}' }]"></p-messages>
+</div>

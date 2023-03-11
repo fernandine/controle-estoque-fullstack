@@ -1,13 +1,10 @@
 import { ProdutoService } from './../../service/produto.service';
 import {
   Component,
-  EventEmitter,
   OnInit,
-  Output,
-  ViewChild,
 } from '@angular/core';
 import { Produto } from 'src/app/common/produto';
-import { DetalheProdutoComponent } from '../../detalhe-produto/detalhe-produto.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-lista-produto',
@@ -15,28 +12,20 @@ import { DetalheProdutoComponent } from '../../detalhe-produto/detalhe-produto.c
 })
 export class ListaProdutoComponent implements OnInit {
 
-  @ViewChild(DetalheProdutoComponent) appDetalhe!: DetalheProdutoComponent ;
-
   produtos: Produto[] = [];
-  produto!: Produto;
-  exibirDetalhes: boolean = false;
 
   constructor(
-    private produtoService: ProdutoService) {}
+    private produtoService: ProdutoService,
+    private router: Router) {}
 
   ngOnInit(): void {
-    this.listarProdutos();
-  }
-
-  listarProdutos(): void {
-    this.produtoService.getProduto().subscribe((produtos) => {
+    this.produtoService.getProdutos().subscribe((produtos) => {
       this.produtos = produtos;
     });
   }
 
-  mostrarDetalhes(produto: Produto) {
-    this.appDetalhe.produto = produto;
-    this.exibirDetalhes = true;
+  verDetalhes(id: number) {
+    this.router.navigate(['/produtos', id]);
   }
 
 excluirProduto(produto: Produto): void {
@@ -45,5 +34,4 @@ excluirProduto(produto: Produto): void {
       this.produtos.splice(index, 1);
     }
   }
-
 }

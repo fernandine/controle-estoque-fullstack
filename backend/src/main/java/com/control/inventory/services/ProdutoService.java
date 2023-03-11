@@ -42,10 +42,6 @@ public class ProdutoService {
 
         copyDtoToEntity(dto, entity);
 
-        //if (entity.getSaldoInicial() > 0) {
-       //     return new ProdutoDto(entity);
-      //  }
-
         entity = repository.save(entity);
             return new ProdutoDto(entity);
     }
@@ -79,10 +75,8 @@ public class ProdutoService {
     private void copyDtoToEntity(ProdutoDto dto, Produto entity) {
         entity.setCodigo(dto.getCodigo());
         entity.setNome(dto.getNome());
-//        entity.setMovimentacao(dto.getMovimentacao());
         entity.setSaldoInicial(dto.getSaldoInicial());
         entity.setQuantidadeMinima(dto.getQuantidadeMinima());
-
     }
 }
 

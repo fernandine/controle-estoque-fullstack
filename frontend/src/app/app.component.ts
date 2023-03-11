@@ -14,4 +14,23 @@ export class AppComponent implements OnInit {
   ngOnInit() {
       this.primengConfig.ripple = true;
   }
+
+  listaMovimentacao: boolean = true;
+  listaProduto: boolean = false;
+
+  visible1: boolean = false;
+  visible2: boolean = false;
+  visible3: boolean = false;
+  visible4: boolean = false;
+
+
+  exibirListaMovimentacao() {
+    this.listaMovimentacao = true;
+    this.listaProduto = false;
+  }
+
+  exibirListaProduto() {
+    this.listaMovimentacao = false;
+    this.listaProduto = true;
+  }
 }

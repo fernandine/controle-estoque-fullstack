@@ -26,6 +26,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class MovimentacaoDto implements Serializable {
 
+    @JsonIgnore
     private Long id;
     private TipoMovimento tipoMovimento;
     @Positive(message ="Preço deve ser positivo")
@@ -35,7 +36,6 @@ public class MovimentacaoDto implements Serializable {
     private Date data;
     private String motivo;
     private String documento;
-
     private Long produtoId;
 
     @Positive(message ="Preço deve ser positivo")
@@ -54,6 +54,4 @@ public class MovimentacaoDto implements Serializable {
         saldo = entity.getSaldo();
         situacao = entity.getSituacao();
     }
-
-
 }

@@ -1,5 +1,76 @@
-<div class="background-component">
-  <router-outlet></router-outlet>
-</div>
+<div class="min-h-screen flex relative lg:static surface-ground">
+  <div id="app-sidebar-5" class="bg-gray-900 h-screen hidden lg:block flex-shrink-0 absolute lg:static left-0 top-0 z-1 border-right-1 border-gray-800 w-18rem lg:w-7rem select-none">
+      <div class="flex flex-column h-full">
+          <div class="flex align-items-center justify-content-center flex-shrink-0 bg-orange-500" style="height:60px">
+              <img src="../../../assets/images/logo.svg" alt="Image" height="30">
+          </div>
+          <div class="mt-3">
+              <ul class="list-none p-3 m-0">
+                  <li>
+                      <a pRipple routerLink="/usuarios" class="flex flex-row lg:flex-column align-items-center cursor-pointer p-3 lg:justify-content-center hover:bg-gray-800 border-round text-gray-300 hover:text-white transition-duration-150 transition-colors">
+                          <i class="pi pi-users mr-2 lg:mr-0 mb-0 lg:mb-2 text-base lg:text-lg"></i>
+                          <span class="font-medium inline text-base lg:text-xs lg:block">Usuários</span>
+                      </a>
+                  </li>
+                  <li>
+                      <a pRipple routerLink="/movimentacoes" class="flex flex-row lg:flex-column align-items-center cursor-pointer p-3 lg:justify-content-center hover:bg-gray-800 border-round text-gray-300 hover:text-white transition-duration-150 transition-colors">
+                          <i class="pi pi-search mr-2 lg:mr-0 mb-0 lg:mb-2 text-base lg:text-lg"></i>
+                          <span  class="font-medium inline text-base lg:text-xs lg:block text-center">Lista de Lançamentos</span>
+                      </a>
+                  </li>
+                  <li>
+                      <a pRipple routerLink="/produtos" class="flex flex-row lg:flex-column align-items-center cursor-pointer p-3 lg:justify-content-center hover:bg-gray-800 border-round text-gray-300 hover:text-white transition-duration-150 transition-colors">
+                          <i class="pi pi-users mr-2 lg:mr-0 mb-0 lg:mb-2 text-base lg:text-lg"></i>
+                          <span  class="font-medium inline text-base lg:text-xs lg:block text-center">Lista de Produtos</span>
+                      </a>
+                  </li>
+              </ul>
+          </div>
+      </div>
+  </div>
+  <div class="min-h-screen flex flex-column relative flex-auto">
+      <div class="flex justify-content-between align-items-center px-5 surface-section relative lg:static border-bottom-1 surface-border" style="height:60px">
+          <div class="flex">
+              <a pRipple class="cursor-pointer inline-flex align-items-center justify-content-center lg:hidden text-700 mr-3" pStyleClass="#app-sidebar-5" enterClass="hidden" enterActiveClass="fadeinleft" leaveToClass="hidden" leaveActiveClass="fadeoutleft" [hideOnOutsideClick]="true">
+                  <i class="pi pi-bars text-4xl"></i>
+              </a>
+              <span class="p-input-icon-left">
+                  <i class="pi pi-search"></i>
+                  <input type="text" pInputText class="border-none w-10rem sm:w-20rem" placeholder="Search">
+              </span>
+          </div>
+          <a pRipple class="cursor-pointer block lg:hidden text-700" pStyleClass="@next" enterClass="hidden" enterActiveClass="fadein" leaveToClass="hidden" leaveActiveClass="fadeout" [hideOnOutsideClick]="true">
+              <i class="pi pi-ellipsis-v text-2xl"></i>
+          </a>
+          <ul class="list-none hidden lg:flex lg:align-items-center select-none lg:flex-row
+              surface-section border-1 lg:border-none surface-border right-0 top-100 z-1 px-8 shadow-2 lg:shadow-none absolute lg:static">
+
+              <button pButton pRipple type="button" icon="pi pi-user" (click)="visible1 = true" label="Login" class="p-button-outlined mr-3"></button>
+              <button pButton pRipple label="Cadastrar Produto" icon="pi pi-plus" (click)="visible2 = true" class="mr-3"></button>
+              <button pButton pRipple label="Lançar Movimentaçao" icon="pi pi-plus" (click)="visible3 = true"></button>
+
+          </ul>
+      </div>
+      <div class="p-5 flex flex-column flex-auto">
+          <div class="border-2 border-dashed surface-border border-round surface-section flex-auto">
+
+          <router-outlet></router-outlet>
+
+            </div>
+          </div>
+      </div>
+  </div>
+
+  <p-dialog [(visible)]="visible1" [modal]="true" [style]="{ 'width': '500px' }" [resizable]="false" [draggable]="false" [contentStyle]="{ 'overflow': 'visible' }"[baseZIndex]="10000">
+    <app-login></app-login>
+  </p-dialog>
+
+  <p-dialog [(visible)]="visible2" appendTo="body" [modal]="true" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '52vw'}" header="Preencha os campos abaixo:" [draggable]="false" [resizable]="false">
+      <app-form-produto></app-form-produto>
+  </p-dialog>
+
+  <p-dialog [(visible)]="visible3" appendTo="body" [modal]="true" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '52vw'}" header="Preencha os campos abaixo:" [draggable]="false" [resizable]="false">
+    <app-form-movimentacao></app-form-movimentacao>
+  </p-dialog>
 
 

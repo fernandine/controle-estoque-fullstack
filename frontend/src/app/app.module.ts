@@ -18,6 +18,7 @@ import { MessageService } from 'primeng/api';
 import { ListaMovimentacaoComponent } from './lista-movimentacao/lista-movimentacao.component';
 import { DetalheProdutoComponent } from './detalhe-produto/detalhe-produto.component';
 import { DetalheMovimentacaoComponent } from './detalhe-movimentacao/detalhe-movimentacao.component';
+import { UsuariosComponent } from './components/usuarios/usuarios.component';
 
 @NgModule({
     declarations: [
@@ -29,7 +30,8 @@ import { DetalheMovimentacaoComponent } from './detalhe-movimentacao/detalhe-mov
         ListaMovimentacaoComponent,
         ListaProdutoComponent,
         DetalheProdutoComponent,
-        DetalheMovimentacaoComponent
+        DetalheMovimentacaoComponent,
+        UsuariosComponent
           ],
     providers: [
       MessageService

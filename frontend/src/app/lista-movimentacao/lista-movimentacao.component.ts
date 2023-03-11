@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Movimentacao } from 'src/app/common/movimentacao';
 import { MovimentacaoService } from 'src/app/service/movimentacao.service';
-import { DetalheMovimentacaoComponent } from '../detalhe-movimentacao/detalhe-movimentacao.component';
 
 @Component({
   selector: 'app-lista-movimentacao',
@@ -9,28 +9,19 @@ import { DetalheMovimentacaoComponent } from '../detalhe-movimentacao/detalhe-mo
 })
 export class ListaMovimentacaoComponent implements OnInit {
 
-  @ViewChild(DetalheMovimentacaoComponent) appDetalhe!: DetalheMovimentacaoComponent ;
-
-  movimentacao = new Movimentacao();
-
-  exibirDetalhes: boolean = false;
   movimentacoes: Movimentacao[] = [];
 
-  constructor(private movimentacaoService: MovimentacaoService) {}
+  constructor(private movimentacaoService: MovimentacaoService,
+    private router: Router) {}
 
   ngOnInit(): void {
-    this.listarMovimentacoes();
-  }
-
-  listarMovimentacoes(): void {
     this.movimentacaoService.getMovimentacoes().subscribe((movimentacoes) => {
       this.movimentacoes = movimentacoes;
     });
   }
 
-  mostrarDetalhes(movimentacao: Movimentacao) {
-    this.appDetalhe.movimentacao = movimentacao;
-    this.exibirDetalhes = true;
+  verDetalhes(produtoId: number) {
+    this.router.navigate(['/movimentacoes', produtoId]);
   }
 
 excluirMovimentacao(movimentacao: Movimentacao): void {

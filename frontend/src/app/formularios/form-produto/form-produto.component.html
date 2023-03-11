@@ -34,6 +34,8 @@
   </div>
   <div class="p-field">
     <label for="saldo" class="font-medium">Saldo Inicial</label>
+    <div *ngIf="formProduto.get('saldoInicial')?.hasError('saldoMenorQueQuantidade')" class="alert alert-danger">O saldo inicial não pode ser menor que a quantidade mínima.</div>
+
     <input
       id="saldo"
       type="text"
@@ -42,6 +44,7 @@
       formControlName="saldoInicial"
       style="margin-bottom: 1rem"
     />
+
   </div>
   <div class="p-dialog-footer">
     <button

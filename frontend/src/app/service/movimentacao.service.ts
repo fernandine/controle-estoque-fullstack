@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, Observable } from 'rxjs';
 import { Movimentacao } from '../common/movimentacao';
 
 
@@ -20,19 +20,20 @@ export class MovimentacaoService {
   createMovimentacao(movimentacao: Movimentacao): Observable<Movimentacao> {
     return this.http.post<Movimentacao>(this.apiUrl, movimentacao);
   }
-/*
-  updateMovimentacao(movimentacao: Movimentacao): Observable<Movimentacao> {
-    const url = `${this.apiUrl}/${movimentacao.id}`;
-    return this.http.put<Movimentacao>(url, movimentacao);
+
+  getMovimentacaoById(produtoId: number): Observable<Movimentacao> {
+    const url = `${this.apiUrl}/${produtoId}`;
+    return this.http.get<Movimentacao>(url);
   }
 
-  deleteMovimentacao(movimentacao: Movimentacao): Observable<Movimentacao> {
-    const url = `${this.apiUrl}/${movimentacao.id}`;
-    return this.http.delete<Movimentacao>(url);
+  updateMovimentacao(movimentacoes: Movimentacao): Observable<Movimentacao> {
+    const url = `${this.apiUrl}/${movimentacoes.produtoId}`;
+    return this.http.put<Movimentacao>(url, movimentacoes);
   }
 
-  MovimentacaoPorId(id: number): Observable<Movimentacao> {
-    return this.http.get<Movimentacao>(`${this.apiUrl}/${id}`);
+  deleteMovimentacao(movimentacoes: Movimentacao): Observable<void> {
+    const url = `${this.apiUrl}/${movimentacoes.produtoId}`;
+    return this.http.delete<void>(url);
   }
-*/
+
 }

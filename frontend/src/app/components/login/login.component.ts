@@ -1,50 +1,44 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
-import { StorageService } from 'src/app/service/storage.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html'
 })
-export class LoginComponent implements OnInit {
-  form: any = {
-    username: null,
-    password: null
-  };
-  isLoggedIn = false;
-  isLoginFailed = false;
-  errorMessage = '';
-  roles: string[] = [];
+export class LoginComponent {
 
-  constructor(private authService: AuthService, private storageService: StorageService) { }
+    form: any = {};
+    isLoggedIn = false;
+    isLoginFailed = false;
+    errorMessage = '';
+    roles: string[] = [];
 
-  ngOnInit(): void {
-    if (this.storageService.isLoggedIn()) {
-      this.isLoggedIn = true;
-      this.roles = this.storageService.getUser().roles;
+    showSuccessMessage: boolean = false;
+
+    constructor(private authService: AuthService, private router: Router) { }
+
+    onSubmit(): void {
+      const { username, password } = this.form;
+      this.authService.login(username, password).subscribe(
+        data => {
+          this.isLoggedIn = true;
+          this.roles = this.authService.getRoles();
+          this.showSuccessMessage = true; // adicione esta linha
+          this.router.navigate(['/usuarios']);
+        },
+        err => {
+          if (err && err.message) {
+            console.error(err.message);
+            this.errorMessage = err.message; // altere a linha que estava anteriormente
+          } else {
+            this.errorMessage = err.error.message;
+            this.isLoginFailed = true;
+          }
+        }
+      );
     }
+
   }
 
-  onSubmit(): void {
-    const { username, password } = this.form;
 
-    this.authService.login(username, password).subscribe({
-      next: data => {
-        this.storageService.saveUser(data);
-
-        this.isLoginFailed = false;
-        this.isLoggedIn = true;
-        this.roles = this.storageService.getUser().roles;
-        this.reloadPage();
-      },
-      error: err => {
-        this.errorMessage = err.error.message;
-        this.isLoginFailed = true;
-      }
-    });
-  }
-
-  reloadPage(): void {
-    window.location.reload();
-  }
-}

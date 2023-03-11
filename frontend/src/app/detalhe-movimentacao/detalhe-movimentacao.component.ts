@@ -1,14 +1,13 @@
 import { Component, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Movimentacao } from '../common/movimentacao';
+import { MovimentacaoService } from '../service/movimentacao.service';
 
 @Component({
   selector: 'app-detalhe-movimentacao',
   templateUrl: './detalhe-movimentacao.component.html'
 })
 export class DetalheMovimentacaoComponent {
-
-  @Input() movimentacao!: Movimentacao;
 
   editandoData: boolean = false;
   editandoTipoMovimento: boolean = false;
@@ -18,8 +17,26 @@ export class DetalheMovimentacaoComponent {
   editandoSaldo: boolean = false;
   editandoProduto: boolean = false;
 
-  constructor(private route: ActivatedRoute) { }
+  movimentacao!: Movimentacao;
 
+  constructor(private activateRoute: ActivatedRoute,
+    private movimentacaoService: MovimentacaoService,
+    private router: Router) { }
+
+  ngOnInit(): void {
+    const produtoId = this.activateRoute.snapshot.paramMap.get('produtoId');
+    if (produtoId) {
+      this.movimentacaoService.getMovimentacaoById(Number(produtoId)).subscribe(
+        (movimentacao: Movimentacao) => {
+          this.movimentacao = movimentacao;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    }
+
+  }
 
   editField(field: string) {
     switch(field) {
@@ -72,4 +89,35 @@ export class DetalheMovimentacaoComponent {
         break;
     }
   }
+
+
+  salvar() {
+    this.movimentacaoService.updateMovimentacao(this.movimentacao).subscribe(
+      () => {
+        // Caso a atualização seja bem sucedida, desabilita o modo edição
+        this.editandoData = false;
+        this.editandoDocumento = false;
+        this.editandoMotivo = false;
+        this.editandoProduto = false;
+        this.editandoQuantidade = false;
+        this.editandoSaldo = false;
+        this.editandoTipoMovimento = false;
+        // Redireciona para a lista de produtos
+        this.router.navigate(['/movimentacoes']);
+      },
+      (erro) => {
+        console.error(erro);
+        // Tratar erro, exibir mensagem de erro para o usuário, etc.
+      }
+    );
+  }
+
+  voltar() {
+    this.router.navigate(['/movimentacoes']);
+  }
+
 }
+
+
+
+

@@ -23,9 +23,10 @@ export class FormProdutoComponent {
       codigo: [0, Validators.required],
       nome: ['', Validators.required],
       quantidadeMinima: [0, Validators.required],
-      saldoInicial: [0, Validators.required]
-    });
-    this.carregarProdutos();
+      saldoInicial: [0, Validators.required]},
+      { validator: this.validarSaldoInicial });
+
+
   }
 
   cancel() {
@@ -39,14 +40,27 @@ export class FormProdutoComponent {
       this.formProduto.reset();
       this.displayDialog = false;
       // lógica para atualizar a lista de produtos na página
-      this.carregarProdutos();
+
     });
   }
 
   carregarProdutos() {
     // Serviço de produtos para carregar a lista de produtos
-    this.produtoService.getProduto().subscribe((produtos) => {
-      this.produtos = produtos;
+    this.produtoService.getProdutos().subscribe((produto) => {
+      this.produtos = produto;
     });
   }
+
+  validarSaldoInicial(formGroup: FormGroup) {
+    const quantidadeMinima = formGroup.get('quantidadeMinima')!.value;
+    const saldoInicial = formGroup.get('saldoInicial')!.value;
+    if (saldoInicial < quantidadeMinima) {
+      return { saldoMenorQueQuantidade: true };
+    } else {
+      return null;
+    }
+  }
+
+  get quantidadeMinima() { return this.formProduto.get('quantidadeMinima'); }
+  get saldoInicial() { return this.formProduto.get('saldoInicial'); }
 }
