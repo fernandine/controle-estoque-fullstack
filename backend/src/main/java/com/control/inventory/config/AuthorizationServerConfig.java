@@ -68,7 +68,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 		chain.setTokenEnhancers(Arrays.asList(accessTokenConverter, tokenEnhancer));
 
 		endpoints
-				.pathMapping("/oauth/token", "/auth/login")
+				//.pathMapping("/oauth/token", "/auth/login")
 				.authenticationManager(authenticationManager)
 				.tokenStore(tokenStore)
 				.accessTokenConverter(accessTokenConverter)

@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { PrimeNGConfig } from 'primeng/api';
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { Router } from "@angular/router";
+import { PrimeNGConfig } from "primeng/api";
+import { Dialog } from "primeng/dialog";
+
 
 @Component({
   selector: 'app-root',
@@ -9,11 +12,7 @@ import { PrimeNGConfig } from 'primeng/api';
 export class AppComponent implements OnInit {
   title = 'angular-ecommerce';
 
-  constructor(private primengConfig: PrimeNGConfig) {}
-
-  ngOnInit() {
-      this.primengConfig.ripple = true;
-  }
+  @ViewChild('loginDialog') loginDialog!: Dialog;
 
   listaMovimentacao: boolean = true;
   listaProduto: boolean = false;
@@ -23,6 +22,19 @@ export class AppComponent implements OnInit {
   visible3: boolean = false;
   visible4: boolean = false;
 
+  constructor(
+    private primengConfig: PrimeNGConfig,
+    private router: Router
+    ) {}
+
+  ngOnInit() {
+      this.primengConfig.ripple = true;
+  }
+
+  openLoginDialog() {
+    this.visible1 = true;
+    this.router.navigate(['/auth/login']);
+  }
 
   exibirListaMovimentacao() {
     this.listaMovimentacao = true;

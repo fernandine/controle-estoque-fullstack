@@ -1,10 +1,8 @@
-import { ProdutoService } from './../../service/produto.service';
-import {
-  Component,
-  OnInit,
-} from '@angular/core';
-import { Produto } from 'src/app/common/produto';
-import { Router } from '@angular/router';
+import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { Produto } from "src/app/common/produto";
+import { ProdutoService } from "src/app/service/produto.service";
+
 
 @Component({
   selector: 'app-lista-produto',

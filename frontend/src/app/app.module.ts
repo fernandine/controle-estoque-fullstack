@@ -1,4 +1,4 @@
-import { HttpClientModule} from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -15,10 +15,11 @@ import { HomeComponent } from './components/home/home.component';
 import { FormProdutoComponent } from './formularios/form-produto/form-produto.component';
 import { ListaProdutoComponent } from './listas/lista-produto/lista-produto.component';
 import { MessageService } from 'primeng/api';
-import { ListaMovimentacaoComponent } from './lista-movimentacao/lista-movimentacao.component';
+import { ListaMovimentacaoComponent } from './listas/lista-movimentacao/lista-movimentacao.component';
 import { DetalheProdutoComponent } from './detalhe-produto/detalhe-produto.component';
 import { DetalheMovimentacaoComponent } from './detalhe-movimentacao/detalhe-movimentacao.component';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
+import { TokenInterceptor } from './interceptors/token.interceptor';
 
 @NgModule({
     declarations: [
@@ -34,7 +35,8 @@ import { UsuariosComponent } from './components/usuarios/usuarios.component';
         UsuariosComponent
           ],
     providers: [
-      MessageService
+      MessageService,
+      { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
     ],
     bootstrap: [AppComponent],
     imports: [
@@ -45,8 +47,6 @@ import { UsuariosComponent } from './components/usuarios/usuarios.component';
         HttpClientModule,
         AppRoutingModule,
         BrowserAnimationsModule,
-        FormsModule,
-        ReactiveFormsModule,
         PrimeNgModule,
 
     ]

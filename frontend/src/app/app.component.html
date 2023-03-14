@@ -45,7 +45,7 @@
           <ul class="list-none hidden lg:flex lg:align-items-center select-none lg:flex-row
               surface-section border-1 lg:border-none surface-border right-0 top-100 z-1 px-8 shadow-2 lg:shadow-none absolute lg:static">
 
-              <button pButton pRipple type="button" icon="pi pi-user" (click)="visible1 = true" label="Login" class="p-button-outlined mr-3"></button>
+              <button pButton pRipple type="button" icon="pi pi-user" (click)="openLoginDialog()" label="Login" class="p-button-outlined mr-3"></button>
               <button pButton pRipple label="Cadastrar Produto" icon="pi pi-plus" (click)="visible2 = true" class="mr-3"></button>
               <button pButton pRipple label="Lançar Movimentaçao" icon="pi pi-plus" (click)="visible3 = true"></button>
 
@@ -61,7 +61,7 @@
       </div>
   </div>
 
-  <p-dialog [(visible)]="visible1" [modal]="true" [style]="{ 'width': '500px' }" [resizable]="false" [draggable]="false" [contentStyle]="{ 'overflow': 'visible' }"[baseZIndex]="10000">
+  <p-dialog [(visible)]="visible1" [modal]="true" [style]="{ 'width': '500px' }" [resizable]="false" [draggable]="false" [contentStyle]="{ 'overflow': 'visible' }" >
     <app-login></app-login>
   </p-dialog>
 

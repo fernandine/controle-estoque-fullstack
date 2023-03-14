@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+
 import { Movimentacao } from '../common/movimentacao';
 import { MovimentacaoService } from '../service/movimentacao.service';
 

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Movimentacao } from 'src/app/common/movimentacao';
-import { MovimentacaoService } from 'src/app/service/movimentacao.service';
+import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { Movimentacao } from "../../common/movimentacao";
+import { MovimentacaoService } from "../../service/movimentacao.service";
+
 
 @Component({
   selector: 'app-lista-movimentacao',

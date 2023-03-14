@@ -1,66 +1,22 @@
-<div class="py-3">
-  <h1 class="text-center">Login</h1>
-  <form
-    *ngIf="!isLoggedIn"
-    name="form"
-    (ngSubmit)="f.form.valid && onSubmit()"
-    #f="ngForm"
-    novalidate
-  >
-    <div class="p-fluid">
-      <!--INPUT USERNAME-->
-      <div class="p-field">
-        <label for="username">Username</label>
-        <input
-          pInputText
-          name="username"
-          [(ngModel)]="form.username"
-          required
-          #username="ngModel"
-          [ngClass]="{ 'p-invalid': f.submitted && username.invalid }"
-        />
-        <div *ngIf="username.invalid" class="p-error">
-          Username is required!
-        </div>
-      </div>
-      <!--INPUT PASSWORD-->
-      <div class="p-field">
-        <label for="password">Password</label>
-        <span class="p-float-label">
-          <p-password
-            inputId="password"
-            name="password"
-            placeholder="Password"
-            [toggleMask]="true"
-            [(ngModel)]="form.password"
-            required
-            #password="ngModel"
-            [ngClass]="{ 'p-invalid': f.submitted && password.invalid }"
-          ></p-password>
-        </span>
-        <!--
-        <div *ngIf="password.invalid" class="p-error">
-          <div *ngIf="password.errors['required']">Password is required</div>
-          <div *ngIf="password.errors['minlength']">
-            Password must be at least 6 characters
-          </div>
-        </div>
-        -->
-      </div>
-      <button
-        pButton
-        pRipple
-        label="Entrar"
-        routerLink="/login"
-        class="mt-8 p-button-rounded p-button-lg p-button-secondary"
-      ></button>
+<div class="py-3 flex justify-content-center">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="p-card p-fluid p-shadow-10" [style.width]="'25em'" novalidate>
+
+    <div class="p-field">
+      <h1 class="text-center mb-5">Login</h1>
+
+      <label for="username" class="p-d-block">Username</label>
+      <input type="text" id="username" formControlName="username" class="p-inputtext mb-2" [ngClass]="{'p-invalid': submitted && loginForm.controls['username'].errors }">
+      <small class="p-error" *ngIf="submitted && loginForm.controls['username'].errors">Username is required.</small>
     </div>
-    <div
-      *ngIf="f.submitted && isLoginFailed"
-      class="p-messages p-messages-error"
-    >
-      Login failed: {{ errorMessage }}
+
+    <div class="p-field">
+      <label for="password" class="p-d-block">Password</label>
+      <p-password type="password" id="password" formControlName="password" class="p-password mb-3" [toggleMask]="true" [ngClass]="{'p-invalid': submitted && loginForm.controls['password'].errors}"></p-password>
+      <small class="p-error" *ngIf="submitted && loginForm.controls['password'].errors">Password is required.</small>
     </div>
+
+    <button pButton type="submit" [disabled]="!loginForm.valid" label="Entrar" class="p-button-raised p-button-primary mt-7"></button>
+    <p-messages *ngIf="showSuccessMessage" severity="success" [value]="[{ summary: 'Logado como {{ roles }}' }]" class="p-d-block p-mb-2"></p-messages>
+    <p-messages *ngIf="isLoginFailed" severity="error" [value]="[{ summary: 'Login failed', detail: errorMessage }]" class="p-d-block p-mb-2"></p-messages>
   </form>
-  <p-messages *ngIf="showSuccessMessage" severity="success" [value]="[{ summary: 'Logged in as {{ roles }}' }]"></p-messages>
 </div>

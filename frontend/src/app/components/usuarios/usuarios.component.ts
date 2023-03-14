@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { User } from 'src/app/common/user';
-import { UsuarioService } from 'src/app/service/usuario.service';
+import { Component } from "@angular/core";
+import { Router } from "@angular/router";
+import { User } from "src/app/common/user";
+import { UsuarioService } from "src/app/service/usuario.service";
+
 
 @Component({
   selector: 'app-usuarios',

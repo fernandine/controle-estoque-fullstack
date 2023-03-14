@@ -10,8 +10,6 @@ import com.control.inventory.dtos.UserInsertDto;
 import com.control.inventory.dtos.UserUpdateDto;
 import com.control.inventory.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
