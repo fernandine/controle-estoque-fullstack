@@ -1,10 +1,8 @@
-import { StatusRole } from './statusRole';
-
 export class Role {
   id: number;
-  authority: StatusRole;
+  authority: string;
 
-  constructor(id: number, authority: StatusRole) {
+  constructor(id: number, authority: string) {
     this.id = id;
     this.authority = authority;
   }

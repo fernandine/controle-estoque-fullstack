@@ -4,6 +4,7 @@ import com.control.inventory.dtos.ProdutoDto;
 import com.control.inventory.services.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -33,7 +34,7 @@ public class ProdutoController {
     }
 
     @PostMapping
-    //@PreAuthorize("hasRole('ROLE_GERENTE')")
+    @PreAuthorize("hasRole('ROLE_MODERATOR')")
     public ResponseEntity<ProdutoDto> insert(@Valid @RequestBody ProdutoDto dto) {
         dto = service.insert(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
@@ -42,7 +43,7 @@ public class ProdutoController {
     }
 
     @PutMapping(value = "/{id}")
-    //@PreAuthorize("hasRole('ROLE_GERENTE')")
+    @PreAuthorize("hasRole('ROLE_MODERATOR')")
     public ResponseEntity<ProdutoDto> update(@PathVariable Long id, @Valid @RequestBody ProdutoDto dto) {
         dto = service.update(id, dto);
         return ResponseEntity.ok().body(dto);

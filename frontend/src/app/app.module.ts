@@ -1,4 +1,5 @@
-import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import { BoardAdminComponent } from './board-admin/board-admin.component';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -9,7 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { PrimeNgModule } from './primeng.module';
-import { LoginComponent } from './components/login/login.component';
+import { LoginComponent } from './authentication/login/login.component';
 import { FormMovimentacaoComponent } from './formularios/form-movimentacao/form-movimentacao.component';
 import { HomeComponent } from './components/home/home.component';
 import { FormProdutoComponent } from './formularios/form-produto/form-produto.component';
@@ -18,8 +19,11 @@ import { MessageService } from 'primeng/api';
 import { ListaMovimentacaoComponent } from './listas/lista-movimentacao/lista-movimentacao.component';
 import { DetalheProdutoComponent } from './detalhe-produto/detalhe-produto.component';
 import { DetalheMovimentacaoComponent } from './detalhe-movimentacao/detalhe-movimentacao.component';
-import { UsuariosComponent } from './components/usuarios/usuarios.component';
 import { TokenInterceptor } from './interceptors/token.interceptor';
+import { RegisterComponent } from './authentication/register/register.component';
+import { ProfileComponent } from './profile/profile.component';
+import { UserComponent } from './components/user/user.component';
+import { UserService } from './service/user.service';
 
 @NgModule({
     declarations: [
@@ -32,11 +36,16 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
         ListaProdutoComponent,
         DetalheProdutoComponent,
         DetalheMovimentacaoComponent,
-        UsuariosComponent
+        RegisterComponent,
+        ProfileComponent,
+        UserComponent,
+        BoardAdminComponent
+
           ],
     providers: [
       MessageService,
-      { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
+      UserService,
+      TokenInterceptor
     ],
     bootstrap: [AppComponent],
     imports: [

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -36,15 +37,6 @@ public class MovimentacaoController {
         return ResponseEntity.ok().body(list);
     }
 
-    @GetMapping("/filtrar")
-    public ResponseEntity<Page<MovimentacaoDto>> findByTipoMovimento(
-            @RequestParam(value = "tipo") TipoMovimento tipoMovimento,
-            Pageable pageable) {
-
-        Page<MovimentacaoDto> page = service.findByTipoMovimento(tipoMovimento, pageable);
-        return ResponseEntity.ok(page);
-    }
-
     @GetMapping("/{id}")
     public ResponseEntity<MovimentacaoDto> findById(@PathVariable Long id) {
         MovimentacaoDto dto = service.findById(id);
@@ -52,7 +44,7 @@ public class MovimentacaoController {
     }
 
     @PostMapping
-    //@PreAuthorize("hasRole('ROLE_GERENTE')")
+    @PreAuthorize("hasRole('ROLE_MODERATOR')")
     public ResponseEntity<MovimentacaoDto> insert(@Valid @RequestBody MovimentacaoDto dto) {
         dto = service.insert(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
@@ -61,7 +53,7 @@ public class MovimentacaoController {
     }
 
     @PutMapping(value = "/{id}")
-    //@PreAuthorize("hasRole('ROLE_GERENTE')")
+    @PreAuthorize("hasRole('ROLE_MODERATOR')")
     public ResponseEntity<MovimentacaoDto> update(@PathVariable Long id, @Valid @RequestBody MovimentacaoDto dto) {
         dto = service.update(id, dto);
         return ResponseEntity.ok().body(dto);
