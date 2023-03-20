@@ -1,58 +1,47 @@
-import { Component } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Dialog } from 'primeng/dialog';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/service/auth.service';
-import { StatusRole } from '../../common/statusRole';
-import { Role } from '../../common/role';
-import { StorageService } from '../../service/storage.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html'
-
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
- form: any = {
-    username: null,
-    password: null
-  };
-  isLoggedIn = false;
-  isLoginFailed = false;
-  errorMessage = '';
-  roles: string[] = [];
+  @ViewChild('loginDialog') loginDialog!: Dialog;
 
-  constructor(private authService: AuthService, private storageService: StorageService) { }
+  loginForm!: FormGroup;
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private authService: AuthService,
+    private messageService: MessageService,
+  ) { }
 
   ngOnInit(): void {
-    if (this.storageService.isLoggedIn()) {
-      this.isLoggedIn = true;
-      this.roles = this.storageService.getUser().roles;
-    }
-  }
-
-  onSubmit(): void {
-    const { username, password } = this.form;
-
-    this.authService.login(username, password).subscribe({
-      next: data => {
-        this.storageService.saveUser(data);
-
-        this.isLoginFailed = false;
-        this.isLoggedIn = true;
-        this.roles = this.storageService.getUser().roles;
-        this.reloadPage();
-      },
-      error: err => {
-        this.errorMessage = err.error.message;
-        this.isLoginFailed = true;
-      }
+    this.loginForm = this.formBuilder.group({
+      username: ['', [Validators.required]],
+      password: ['', [Validators.required]]
     });
   }
 
-  reloadPage(): void {
-    window.location.reload();
+  onSubmit(): void {
+    if (this.loginForm.valid) {
+      this.authService.login(this.loginForm.value.username, this.loginForm.value.password)
+        .subscribe(success => {
+          window.location.reload();
+          if (success) {
+            this.router.navigate(['/users']);
+          } else {
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Invalid username or password' });
+          }
+        });
+    } else {
+      this.messageService.add({ severity: 'warn', summary: 'Warning', detail: 'Please fill all fields' });
+    }
   }
-
 }

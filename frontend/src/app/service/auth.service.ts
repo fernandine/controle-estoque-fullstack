@@ -1,44 +1,85 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
-
-const AUTH_API = 'http://localhost:8080/api/auth/';
-
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-};
+import { map } from 'rxjs/operators';
+import { StorageService } from './storage.service';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class AuthService {
-  constructor(private http: HttpClient) {}
 
-  login(username: string, password: string): Observable<any> {
-    return this.http.post(
-      AUTH_API + 'signin',
-      {
-        username,
-        password,
-      },
-      httpOptions
+  private readonly apiUrl = 'http://localhost:8080/oauth/token';
+
+  constructor(
+    private http: HttpClient,
+    private storageService: StorageService
+  ) { }
+
+  login(username: string, password: string): Observable<boolean> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Authorization': 'Basic ' + btoa('inventory:inventory123')
+    });
+
+    const body = new URLSearchParams();
+    body.set('username', username);
+    body.set('password', password);
+    body.set('grant_type', 'password');
+
+    return this.http.post<any>(this.apiUrl, body.toString(), { headers: headers }).pipe(
+      map(response => {
+        const token = response.access_token;
+        if (token) {
+          this.storageService.setItem('currentUser', { username, token });
+          return true;
+        } else {
+          return false;
+        }
+      })
     );
   }
 
-  register(username: string, email: string, password: string): Observable<any> {
-    return this.http.post(
-      AUTH_API + 'signup',
-      {
-        username,
-        email,
-        password,
-      },
-      httpOptions
-    );
+  logout(): void {
+    this.storageService.removeItem('currentUser');
   }
 
-  logout(): Observable<any> {
-    return this.http.post(AUTH_API + 'signout', { }, httpOptions);
+  getToken(): string {
+    const currentUser = this.storageService.getItem('currentUser') || {};
+    return currentUser.token;
   }
+
+  isAuthenticated(): boolean {
+    const currentUser = this.storageService.getItem('currentUser');
+    return !!currentUser && !!currentUser.token;
+  }
+
+  getHeaders(): HttpHeaders {
+    const token = this.getToken();
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+  }
+
+  get(url: string): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.get(url, { headers });
+  }
+
+  post(url: string, data: any): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.post(url, data, { headers });
+  }
+
+  put(url: string, data: any): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.put(url, data, { headers });
+  }
+
+  delete(url: string): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.delete(url, { headers });
+  }
+
 }

@@ -1,4 +1,3 @@
-import { BoardAdminComponent } from './board-admin/board-admin.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -20,10 +19,9 @@ import { ListaMovimentacaoComponent } from './listas/lista-movimentacao/lista-mo
 import { DetalheProdutoComponent } from './detalhe-produto/detalhe-produto.component';
 import { DetalheMovimentacaoComponent } from './detalhe-movimentacao/detalhe-movimentacao.component';
 import { TokenInterceptor } from './interceptors/token.interceptor';
-import { RegisterComponent } from './authentication/register/register.component';
-import { ProfileComponent } from './profile/profile.component';
 import { UserComponent } from './components/user/user.component';
 import { UserService } from './service/user.service';
+import { StatusRolePipe } from './status-role.pipe';
 
 @NgModule({
     declarations: [
@@ -36,10 +34,8 @@ import { UserService } from './service/user.service';
         ListaProdutoComponent,
         DetalheProdutoComponent,
         DetalheMovimentacaoComponent,
-        RegisterComponent,
-        ProfileComponent,
         UserComponent,
-        BoardAdminComponent
+        StatusRolePipe
 
           ],
     providers: [

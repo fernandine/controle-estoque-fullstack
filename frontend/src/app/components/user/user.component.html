@@ -1,7 +1,6 @@
 <p-table [value]="usuarios" [paginator]="true" [rows]="6" class="py-3 px-3">
   <ng-template pTemplate="header">
     <tr>
-      <th>ID</th>
       <th>Nome</th>
       <th>Sobrenome</th>
       <th>E-mail</th>
@@ -10,14 +9,13 @@
   </ng-template>
   <ng-template pTemplate="body" let-usuario>
     <tr>
-      <td>{{ usuario.id }}</td>
       <td>{{ usuario.firstName }}</td>
       <td>{{ usuario.lastName }}</td>
       <td>{{ usuario.email }}</td>
       <td>
         <ul>
           <li *ngFor="let role of usuario.roles">
-            {{ role.authority }}
+            {{ role.authority | statusRole }}
           </li>
         </ul>
       </td>

@@ -1,33 +1,55 @@
 package com.control.inventory.controllers;
 
-import com.control.inventory.dtos.UserDto;
+import com.control.inventory.dtos.UserDTO;
+import com.control.inventory.dtos.UserInsertDTO;
+import com.control.inventory.dtos.UserUpdateDTO;
 import com.control.inventory.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.util.List;
+import javax.validation.Valid;
+import java.net.URI;
 
 @RestController
-@RequestMapping(value= "/users")
-@CrossOrigin(origins = "http://localhost:8081", maxAge = 3600, allowCredentials="true")
+@RequestMapping(value = "/users")
 public class UserController {
 
-    @Autowired
-    private UserService service;
+	@Autowired
+	private UserService service;
+	
+	@GetMapping
+	public ResponseEntity<Page<UserDTO>> findAll(Pageable pageable) {
+		Page<UserDTO> list = service.findAllPaged(pageable);		
+		return ResponseEntity.ok().body(list);
+	}
 
-    @GetMapping
-    //@PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<List<UserDto>> findAll() {
-        List<UserDto> list = service.findAll();
-        return ResponseEntity.ok().body(list);
-    }
+	@GetMapping(value = "/{id}")
+	public ResponseEntity<UserDTO> findById(@PathVariable Long id) {
+		UserDTO dto = service.findById(id);
+		return ResponseEntity.ok().body(dto);
+	}
+	
+	@PostMapping
+	public ResponseEntity<UserDTO> insert(@RequestBody @Valid UserInsertDTO dto) {
+		UserDTO newDto = service.insert(dto);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+				.buildAndExpand(newDto.getId()).toUri();
+		return ResponseEntity.created(uri).body(newDto);
+	}
 
-    @GetMapping(value = "/{id}")
-    //@PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<UserDto> findById(@PathVariable Long id) {
-        UserDto dto = service.findById(id);
-        return ResponseEntity.ok().body(dto);
-    }
-}
+	@PutMapping(value = "/{id}")
+	public ResponseEntity<UserDTO> update(@PathVariable Long id, @RequestBody @Valid UserUpdateDTO dto) {
+		UserDTO newDto = service.update(id, dto);
+		return ResponseEntity.ok().body(newDto);
+	}
+
+	@DeleteMapping(value = "/{id}")
+	public ResponseEntity<Void> delete(@PathVariable Long id) {
+		service.delete(id);
+		return ResponseEntity.noContent().build();
+	}
+} 

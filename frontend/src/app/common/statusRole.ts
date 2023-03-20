@@ -1,5 +1,0 @@
-export enum StatusRole {
-  ROLE_OPERATOR = 'ROLE_MODERATOR',
-  ROLE_ADMIN = 'ROLE_ADMIN',
-  ROLE_USER = 'ROLE_USER'
-}

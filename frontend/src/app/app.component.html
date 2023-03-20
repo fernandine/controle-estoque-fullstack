@@ -51,23 +51,10 @@
           <ul class="list-none hidden lg:flex lg:align-items-center select-none lg:flex-row
               surface-section border-1 lg:border-none surface-border right-0 top-100 z-1 px-8 shadow-2 lg:shadow-none absolute lg:static">
 
-
-              <button pButton pRipple type="button" icon="pi pi-user" (click)="openRegisterDialog()" label="Sign Up" class="p-button-outlined mr-3"></button>
-              <button pButton pRipple type="button" icon="pi pi-user" (click)="openLoginDialog()" label="Login" class="p-button-outlined mr-5"></button>
-
+              <button pButton pRipple type="button" icon="pi pi-user" (click)="openLoginDialog()" label="Login" class="p-button-outlined mr-3"></button>
               <button pButton pRipple label="Cadastrar Produto" icon="pi pi-plus" (click)="visible2 = true" class="mr-3"></button>
-              <button pButton pRipple label="Lançar Movimentaçao" icon="pi pi-plus" (click)="visible3 = true"></button>
-              <li class="nav-item" *ngIf="showAdminBoard">
-                <a href="/admin" class="nav-link" routerLink="admin">Admin Board</a>
-              </li>
-              <ul *ngIf="isLoggedIn">
-              <li class="px-5">
-                <span>Olá, </span><a routerLink="/profile" routerLink="profile">{{ username }}</a>
-              </li>
-              <li class="flex justify-content-end">
-                <button pButton pRipple (click)="logout()" label="LogOut" class="p-button-text p-button-plain"></button>
-              </li>
-            </ul>
+              <button pButton pRipple label="Lançar Movimentaçao" icon="pi pi-plus" (click)="visible3 = true" class="mr-3"></button>
+              <button pButton pRipple type="button" *ngIf="isLoggedIn" (click)="logout()" label="Sair" class="p-button-text p-button-plain"></button>
           </ul>
       </div>
       <div class="p-5 flex flex-column flex-auto">
@@ -80,11 +67,7 @@
       </div>
   </div>
 
-  <p-dialog [(visible)]="visible1" [modal]="true" [style]="{ 'width': '500px' }" [resizable]="false" [draggable]="false" [contentStyle]="{ 'overflow': 'visible' }" >
-    <app-register></app-register>
-  </p-dialog>
-
-  <p-dialog [(visible)]="visible1" [modal]="true" [style]="{ 'width': '500px' }" [resizable]="false" [draggable]="false" [contentStyle]="{ 'overflow': 'visible' }" >
+  <p-dialog #loginDialog [(visible)]="visible1" [modal]="true" [style]="{ 'width': '500px' }" [resizable]="false" [draggable]="false" [contentStyle]="{ 'overflow': 'visible' }" >
     <app-login></app-login>
   </p-dialog>
 
@@ -95,5 +78,3 @@
   <p-dialog [(visible)]="visible3" appendTo="body" [modal]="true" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '52vw'}" header="Preencha os campos abaixo:" [draggable]="false" [resizable]="false">
     <app-form-movimentacao></app-form-movimentacao>
   </p-dialog>
-
-
