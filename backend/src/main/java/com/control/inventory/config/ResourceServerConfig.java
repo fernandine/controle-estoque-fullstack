@@ -35,9 +35,9 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 	
 	private static final String[] PUBLIC = { "/oauth/token", "/h2-console/**" };
 	
-	private static final String[] OPERATOR_OR_ADMIN = { "/movimentacoes/**", "/produtos/**" };
+	private static final String[] OPERATOR = { "/movimentacoes/**", "/produtos/**" };
 	
-	private static final String[] ADMIN = { "/users/**" };	
+	private static final String[] ADMIN = { "/users", "/movimentacoes/**", "/produtos/**" };
 
 	@Override
 	public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
@@ -51,14 +51,14 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 		if (Arrays.asList(env.getActiveProfiles()).contains("test")) {
 			http.headers().frameOptions().disable();
 		}
-		
+
 		http.authorizeRequests()
-		.antMatchers(PUBLIC).permitAll()
-		.antMatchers(HttpMethod.GET, OPERATOR_OR_ADMIN).permitAll()
-		.antMatchers(OPERATOR_OR_ADMIN).hasAnyRole("OPERATOR", "ADMIN")
-		.antMatchers(ADMIN).hasRole("ADMIN")
-		.anyRequest().authenticated();
-		
+				.antMatchers(PUBLIC).permitAll()
+				.antMatchers(HttpMethod.GET, OPERATOR).permitAll()
+				.antMatchers(OPERATOR).hasAnyRole("OPERATOR")
+				.antMatchers(ADMIN).hasRole("ADMIN")
+				.anyRequest().authenticated();
+
 		http.cors().configurationSource(corsConfigurationSource());
 	}
 	
@@ -71,6 +71,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 	    corsConfig.setAllowedOriginPatterns(Arrays.asList(origins));
 	    corsConfig.setAllowedMethods(Arrays.asList("POST", "GET", "PUT", "DELETE", "PATCH"));
 	    corsConfig.setAllowCredentials(true);
+		//corsConfig.addAllowedHeader("*");
 	    corsConfig.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
 	 
 	    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

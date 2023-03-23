@@ -1,8 +1,8 @@
-import { Component, Input, OnInit} from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnInit} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Produto } from '../common/produto';
-import { ProdutoService } from '../service/produto.service';
+import { Produto } from 'src/app/common/produto';
+import { ProdutoService } from 'src/app/service/produto.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-detalhe-produto',
@@ -14,11 +14,10 @@ export class DetalheProdutoComponent implements OnInit {
   editandoCodigo: boolean = false;
   editandoQuantidade: boolean = false;
   produto!: Produto;
-  private produtoOriginal!: Produto;
 
   constructor(
-    private fb: FormBuilder,
     private activateRoute: ActivatedRoute,
+    private location: Location,
     private produtoService: ProdutoService,
     private router: Router
     ) { }
@@ -36,7 +35,7 @@ export class DetalheProdutoComponent implements OnInit {
         );
       }
 
-      this.produto = {...this.produtoOriginal};
+      this.produto = {...this.produto};
     }
 
   editField(field: string) {
@@ -84,10 +83,8 @@ export class DetalheProdutoComponent implements OnInit {
     );
   }
 
-
   voltar() {
-    this.router.navigate(['/produtos']);
+    this.location.back();
   }
-
 
   }

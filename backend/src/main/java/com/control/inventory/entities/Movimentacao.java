@@ -37,7 +37,7 @@ public class Movimentacao extends MovimentacaoDto implements Serializable {
 
     private String situacao;
 
-    @ManyToOne//(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "produto_id")
     private Produto produto;
 

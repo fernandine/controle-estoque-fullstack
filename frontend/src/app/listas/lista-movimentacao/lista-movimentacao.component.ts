@@ -1,5 +1,7 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { TipoMovimento } from "src/app/common/tipoMovimento";
+import { AuthService } from "src/app/service/auth.service";
 import { Movimentacao } from "../../common/movimentacao";
 import { MovimentacaoService } from "../../service/movimentacao.service";
 
@@ -11,6 +13,15 @@ import { MovimentacaoService } from "../../service/movimentacao.service";
 export class ListaMovimentacaoComponent implements OnInit {
 
   movimentacoes: Movimentacao[] = [];
+
+  tiposMovimento = [
+    {label: 'Selecione', value: null},
+    { label: TipoMovimento.ENTRADA, value: TipoMovimento.ENTRADA },
+    { label: TipoMovimento.SAIDA, value: TipoMovimento.SAIDA },
+    { label: TipoMovimento.SALDO_INICIAL, value: TipoMovimento.SALDO_INICIAL },
+    { label: TipoMovimento.AJUSTE_ENTRADA, value: TipoMovimento.AJUSTE_ENTRADA },
+    { label: TipoMovimento.AJUSTE_SAIDA, value: TipoMovimento.AJUSTE_SAIDA }
+  ];
 
   constructor(private movimentacaoService: MovimentacaoService,
     private router: Router) {}
@@ -25,10 +36,4 @@ export class ListaMovimentacaoComponent implements OnInit {
     this.router.navigate(['/movimentacoes', produtoId]);
   }
 
-excluirMovimentacao(movimentacao: Movimentacao): void {
-    const index = this.movimentacoes.findIndex(p => p === movimentacao);
-    if (index !== -1) {
-      this.movimentacoes.splice(index, 1);
-    }
-  }
 }

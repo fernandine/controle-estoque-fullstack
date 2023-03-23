@@ -6,30 +6,29 @@
           </div>
           <div class="mt-3">
               <ul class="list-none p-3 m-0">
+                <li>
+                  <a pRipple routerLink="/home" class="flex flex-row lg:flex-column align-items-center cursor-pointer p-3 lg:justify-content-center hover:bg-gray-800 border-round text-gray-300 hover:text-white transition-duration-150 transition-colors">
+                      <i class="pi pi-users mr-2 lg:mr-0 mb-0 lg:mb-2 text-base lg:text-lg"></i>
+                      <span class="font-medium inline text-base lg:text-xs lg:block">Home</span>
+                  </a>
+              </li>
                   <li>
-                      <a pRipple routerLink="/users" class="flex flex-row lg:flex-column align-items-center cursor-pointer p-3 lg:justify-content-center hover:bg-gray-800 border-round text-gray-300 hover:text-white transition-duration-150 transition-colors">
+                      <a pRipple *ngIf="isLoggedIn" routerLink="/users" class="flex flex-row lg:flex-column align-items-center cursor-pointer p-3 lg:justify-content-center hover:bg-gray-800 border-round text-gray-300 hover:text-white transition-duration-150 transition-colors">
                           <i class="pi pi-users mr-2 lg:mr-0 mb-0 lg:mb-2 text-base lg:text-lg"></i>
                           <span class="font-medium inline text-base lg:text-xs lg:block">Usuários</span>
                       </a>
                   </li>
                   <li>
                       <a pRipple routerLink="/movimentacoes" class="flex flex-row lg:flex-column align-items-center cursor-pointer p-3 lg:justify-content-center hover:bg-gray-800 border-round text-gray-300 hover:text-white transition-duration-150 transition-colors">
-                          <i class="pi pi-search mr-2 lg:mr-0 mb-0 lg:mb-2 text-base lg:text-lg"></i>
-                          <span  class="font-medium inline text-base lg:text-xs lg:block text-center">Lista de Lançamentos</span>
+                        <i class="pi pi-search mr-2 lg:mr-0 mb-0 lg:mb-2 text-base lg:text-lg"></i>
+                        <span  class="font-medium inline text-base lg:text-xs lg:block text-center">Lista de Lançamentos</span>
                       </a>
-                  </li>
-                  <li>
+
                       <a pRipple routerLink="/produtos" class="flex flex-row lg:flex-column align-items-center cursor-pointer p-3 lg:justify-content-center hover:bg-gray-800 border-round text-gray-300 hover:text-white transition-duration-150 transition-colors">
-                          <i class="pi pi-users mr-2 lg:mr-0 mb-0 lg:mb-2 text-base lg:text-lg"></i>
-                          <span  class="font-medium inline text-base lg:text-xs lg:block text-center">Lista de Produtos</span>
+                        <i class="pi pi-users mr-2 lg:mr-0 mb-0 lg:mb-2 text-base lg:text-lg"></i>
+                        <span  class="font-medium inline text-base lg:text-xs lg:block text-center">Lista de Produtos</span>
                       </a>
                   </li>
-                  <li>
-                    <a pRipple routerLink="/admin" class="flex flex-row lg:flex-column align-items-center cursor-pointer p-3 lg:justify-content-center hover:bg-gray-800 border-round text-gray-300 hover:text-white transition-duration-150 transition-colors">
-                        <i class="pi pi-users mr-2 lg:mr-0 mb-0 lg:mb-2 text-base lg:text-lg"></i>
-                        <span class="font-medium inline text-base lg:text-xs lg:block text-center">Area Admin</span>
-                    </a>
-                </li>
               </ul>
           </div>
       </div>
@@ -51,9 +50,9 @@
           <ul class="list-none hidden lg:flex lg:align-items-center select-none lg:flex-row
               surface-section border-1 lg:border-none surface-border right-0 top-100 z-1 px-8 shadow-2 lg:shadow-none absolute lg:static">
 
-              <button pButton pRipple type="button" icon="pi pi-user" (click)="openLoginDialog()" label="Login" class="p-button-outlined mr-3"></button>
+              <button pButton pRipple type="button" icon="pi pi-user" *ngIf="!isLoggedIn" (click)="openLoginDialog()" label="Login" class="p-button-outlined mr-3"></button>
               <button pButton pRipple label="Cadastrar Produto" icon="pi pi-plus" (click)="visible2 = true" class="mr-3"></button>
-              <button pButton pRipple label="Lançar Movimentaçao" icon="pi pi-plus" (click)="visible3 = true" class="mr-3"></button>
+              <button pButton pRipple label="Lançar Movimentaçao" *ngIf="isLoggedIn" icon="pi pi-plus" (click)="visible3 = true" class="mr-3"></button>
               <button pButton pRipple type="button" *ngIf="isLoggedIn" (click)="logout()" label="Sair" class="p-button-text p-button-plain"></button>
           </ul>
       </div>
@@ -67,7 +66,7 @@
       </div>
   </div>
 
-  <p-dialog #loginDialog [(visible)]="visible1" [modal]="true" [style]="{ 'width': '500px' }" [resizable]="false" [draggable]="false" [contentStyle]="{ 'overflow': 'visible' }" >
+  <p-dialog [(visible)]="visible1" [modal]="true" [style]="{ 'width': '500px' }" [resizable]="false" [draggable]="false" [contentStyle]="{ 'overflow': 'visible' }" >
     <app-login></app-login>
   </p-dialog>
 

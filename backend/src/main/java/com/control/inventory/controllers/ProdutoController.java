@@ -15,7 +15,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/produtos")
-@CrossOrigin(origins = "http://localhost:8081", maxAge = 3600, allowCredentials="true")
 public class ProdutoController {
 
     @Autowired
@@ -34,7 +33,6 @@ public class ProdutoController {
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('ROLE_MODERATOR')")
     public ResponseEntity<ProdutoDto> insert(@Valid @RequestBody ProdutoDto dto) {
         dto = service.insert(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
@@ -43,7 +41,6 @@ public class ProdutoController {
     }
 
     @PutMapping(value = "/{id}")
-    @PreAuthorize("hasRole('ROLE_MODERATOR')")
     public ResponseEntity<ProdutoDto> update(@PathVariable Long id, @Valid @RequestBody ProdutoDto dto) {
         dto = service.update(id, dto);
         return ResponseEntity.ok().body(dto);

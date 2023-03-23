@@ -8,7 +8,7 @@ import { User } from 'src/app/common/user';
 })
 export class UserService {
 
-  private readonly apiUrl = 'http://localhost:8080/api/area/';
+  private readonly apiUrl = 'http://localhost:8080/';
 
   constructor(private http: HttpClient) { }
 

@@ -1,9 +1,7 @@
 package com.control.inventory.services;
 
-import com.control.inventory.dtos.RoleDTO;
-import com.control.inventory.dtos.UserDTO;
-import com.control.inventory.dtos.UserInsertDTO;
-import com.control.inventory.dtos.UserUpdateDTO;
+import com.control.inventory.dtos.*;
+import com.control.inventory.entities.Movimentacao;
 import com.control.inventory.entities.Role;
 import com.control.inventory.entities.User;
 import com.control.inventory.repositories.RoleRepository;
@@ -25,7 +23,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -42,9 +42,9 @@ public class UserService implements UserDetailsService {
 	private RoleRepository roleRepository;
 	
 	@Transactional(readOnly = true)
-	public Page<UserDTO> findAllPaged(Pageable pageable) {
-		Page<User> list = repository.findAll(pageable);
-		return list.map(x -> new UserDTO(x));
+	public List<UserDTO> findAll() {
+		List<User> list = repository.findAll();
+		return list.stream().map(UserDTO::new).collect(Collectors.toList());
 	}
 
 	@Transactional(readOnly = true)

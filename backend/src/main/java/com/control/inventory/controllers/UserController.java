@@ -5,25 +5,25 @@ import com.control.inventory.dtos.UserInsertDTO;
 import com.control.inventory.dtos.UserUpdateDTO;
 import com.control.inventory.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/users")
+//@CrossOrigin(origins = "http://localhost:8081", maxAge = 3600, allowCredentials="true")
 public class UserController {
 
 	@Autowired
 	private UserService service;
 	
 	@GetMapping
-	public ResponseEntity<Page<UserDTO>> findAll(Pageable pageable) {
-		Page<UserDTO> list = service.findAllPaged(pageable);		
+	public ResponseEntity<List<UserDTO>> findAll() {
+		List<UserDTO> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 

@@ -31,8 +31,8 @@ export class MovimentacaoService {
     return this.http.put<Movimentacao>(url, movimentacoes);
   }
 
-  deleteMovimentacao(movimentacoes: Movimentacao): Observable<void> {
-    const url = `${this.apiUrl}/${movimentacoes.produtoId}`;
+  deleteMovimentacao(id: number): Observable<void> {
+    const url = `${this.apiUrl}/${id}`;
     return this.http.delete<void>(url);
   }
 

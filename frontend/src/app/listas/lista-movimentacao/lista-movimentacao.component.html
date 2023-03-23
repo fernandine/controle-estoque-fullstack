@@ -1,63 +1,94 @@
-<p-table #dt [value]="movimentacoes" dataKey="id" [paginator]="true" [rows]="6" [responsive]="true"[rowHover]="true" [showCurrentPageReport]="true"
-[filterDelay]="0" [globalFilterFields]="['produtoId','data','tipoMovimento']">
+<p-table
+  [value]="movimentacoes"
+  dataKey="id"
+  [paginator]="true"
+  [rows]="6"
+  [responsive]="true"
+  [rowHover]="true"
+  [showCurrentPageReport]="true"
+  [filterDelay]="0"
+  [globalFilterFields]="['produtoId', 'data', 'tipoMovimento']"
+>
   <ng-template pTemplate="header">
     <tr>
       <th pSortableColumn="produtoId" style="min-width: 8rem">
-        <div class="text-orange-500 flex justify-content-between align-items-center">
-            Sku
-            <p-sortIcon field="produtoId"></p-sortIcon>
-            <p-columnFilter type="text" field="produto" display="menu" class="ml-auto"></p-columnFilter>
+        <div
+          class="text-orange-500 flex justify-content-between align-items-center"
+        >
+          Sku
+          <p-sortIcon field="produtoId"></p-sortIcon>
+          <p-columnFilter
+            type="text"
+            field="produtoId"
+            display="menu"
+            matchMode="contains"
+            class="ml-auto"
+          ></p-columnFilter>
         </div>
       </th>
 
       <th pSortableColumn="data" style="min-width: 8rem">
-        <div class="text-orange-500 flex justify-content-between align-items-center">
-            Data do Movimento
-            <p-sortIcon field="data"></p-sortIcon>
-            <p-columnFilter type="text" field="data" display="menu" class="ml-auto"></p-columnFilter>
+        <div
+          class="text-orange-500 flex justify-content-between align-items-center"
+        >
+          Período
+          <p-sortIcon field="data"></p-sortIcon>
+          <p-columnFilter
+            type="date"
+            field="date"
+            display="menu"
+            class="ml-auto"
+          ></p-columnFilter>
         </div>
       </th>
-      <th pSortableColumn="tipoMovimento" style="min-width:14rem">
-          <div class="text-orange-500 flex justify-content-center align-items-center">
-              Tipo de Movimento
-          </div>
-      </th>
-      <th style="min-width:10rem">
-        Documento
-      </th>
-      <th style="min-width:10rem">
-        Quantidade
-      </th>
-      <th style="min-width:10rem">
-        Motivo
-      </th>
-      <th style="min-width:10rem">
-        Saldo
-      </th>
-      <th style="min-width:10rem">
-        Situacao
-      </th>
-      <th></th><th></th>
+
+      <th pSortableColumn="tipoMovimento" style="min-width: 8rem">
+        <div class="flex text-orange-500 justify-content-center align-items-center">
+            Tipo de Movimento
+            <p-sortIcon field="tipoMovimento"></p-sortIcon>
+            <p-columnFilter field="tipoMovimento" matchMode="equals" display="menu">
+                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                    <p-dropdown [ngModel]="value" [options]="tiposMovimento" (onChange)="filter($event.value)" placeholder="Any">
+                        <ng-template let-option pTemplate="item">
+                            <span [class]="'customer-badge status-' + option.value">{{option.label}}</span>
+                        </ng-template>
+                    </p-dropdown>
+                </ng-template>
+            </p-columnFilter>
+        </div>
+    </th>
+
+      <th style="min-width: 10rem">Documento</th>
+      <th style="min-width: 10rem">Quantidade</th>
+      <th style="min-width: 10rem">Motivo</th>
+      <th style="min-width: 10rem">Saldo</th>
+      <th style="min-width: 10rem">Situacao</th>
+      <th></th>
+      <th></th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-dado>
     <tr>
-      <td>{{dado.produtoId}}</td>
-      <td>{{dado.data}}</td>
-      <td>{{dado.tipoMovimento}}</td>
-      <td>{{dado.documento}}</td>
-      <td>{{dado.quantidade}}</td>
-      <td>{{dado.motivo}}</td>
-      <td>{{dado.saldo | currency: "BRL"}}</td>
-      <td>{{dado.situacao}}</td>
+      <td>{{ dado.produtoId }}</td>
+      <td>{{ dado.data }}</td>
+      <td>{{ dado.tipoMovimento }}</td>
+      <td>{{ dado.documento }}</td>
+      <td>{{ dado.quantidade }}</td>
+      <td>{{ dado.motivo }}</td>
+      <td>{{ dado.saldo | currency : "BRL" }}</td>
+      <td>{{ dado.situacao }}</td>
       <td>
         <div class="d-flex">
-          <button pButton pRipple type="button" icon="pi pi-file-edit" class="mb-2 p-button-rounded mr-2" (click)="verDetalhes(dado.produtoId)"></button>
-          <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-danger p-button-rounded" (click)="excluirMovimentacao(dado)"></button>
+          <button
+            pButton
+            pRipple
+            type="button"
+            icon="pi pi-file-edit"
+            class="mb-2 p-button-rounded mr-2"
+            (click)="verDetalhes(dado.produtoId)"
+          ></button>
         </div>
       </td>
     </tr>
   </ng-template>
 </p-table>
-
-

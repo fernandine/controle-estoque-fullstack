@@ -1,7 +1,5 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { Router } from "@angular/router";
 import { PrimeNGConfig } from "primeng/api";
-import { Dialog } from "primeng/dialog";
 import { AuthService } from "./service/auth.service";
 
 
@@ -13,9 +11,7 @@ import { AuthService } from "./service/auth.service";
 export class AppComponent implements OnInit {
   title = 'angular-ecommerce';
 
-  isLoggedIn = false;
-  @ViewChild('loginDialog') loginDialog!: Dialog;
-
+  isLoggedIn: boolean = false;
   listaMovimentacao: boolean = true;
   listaProduto: boolean = false;
 
@@ -26,9 +22,7 @@ export class AppComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private primengConfig: PrimeNGConfig,
-    private router: Router,
-
+    private primengConfig: PrimeNGConfig
     ) {}
 
   ngOnInit() {
@@ -38,7 +32,6 @@ export class AppComponent implements OnInit {
 
   openLoginDialog() {
     this.visible1 = true;
-    this.router.navigate(['/auth/login']);
   }
 
   exibirListaMovimentacao() {

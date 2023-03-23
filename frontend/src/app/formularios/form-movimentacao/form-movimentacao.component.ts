@@ -47,6 +47,8 @@ export class FormMovimentacaoComponent implements OnInit {
     });
 this.getMovimentacoes();
 this.getProdutos();
+
+
 }
 
 getProdutos(): void {
@@ -62,9 +64,8 @@ getProdutos(): void {
        });
   }
 
-  //Implementação da validação das regras de negócio no método insertMovimentacao(),
-  //antes de chamar o serviço createMovimentacao():
-  insertMovimentacao(): void {
+
+  save(): void {
     const movimentacao = this.formMovimentacao.value;
 
     // Verificar se o produto já possui um lançamento de saldo inicial
@@ -109,6 +110,7 @@ getProdutos(): void {
       this.selectedProduto = null;
       this.displayDialog = false;
       this.getMovimentacoes();
+      window.location.reload();
     });
   }
 
@@ -179,6 +181,5 @@ getProdutos(): void {
       }
     }, 0);
   }
-
 
 }

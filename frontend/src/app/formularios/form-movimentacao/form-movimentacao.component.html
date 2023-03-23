@@ -2,12 +2,13 @@
   <form [formGroup]="formMovimentacao">
     <div class="p-field">
       <div class="p-field">
-        <label for="produtoId">Produto*</label>
+        <label for="produtoId">SKU do Produto*</label>
         <input type="number" formControlName="produtoId" pInputText />
       </div>
 
       <label for="tipoMovimento">Tipo de Movimento*</label>
       <p-dropdown formControlName="tipoMovimento" [options]="tipoMovimento" (onChange)="onTipoMovimentoChange()"></p-dropdown>
+      <small *ngIf="formMovimentacao.get('tipoMovimento')?.invalid && formMovimentacao.get('tipoMovimento')?.touched" class="p-error">Tipo de Movimento é obrigatório</small>
       <div *ngIf="showDocumento">
         <div class="p-field">
           <label for="documento">Documento</label>
@@ -18,11 +19,13 @@
     <div class="p-field">
       <label for="data">Data*</label>
       <p-inputMask mask="99/99/9999" formControlName="data" placeholder="99/99/9999" slotChar="dd/mm/yyyy"></p-inputMask>
+      <small *ngIf="formMovimentacao.get('data')?.invalid && formMovimentacao.get('data')?.touched" class="p-error">Data é obrigatória</small>
+      <small *ngIf="selectedProduto && formMovimentacao.get('data')?.value < selectedProduto.dataCriacao" class="p-error">Data não pode ser anterior à data de criação do produto.</small>
     </div>
-    <div class="p-field">
-      <label for="quantidade">Quantidade</label>
-      <input type="number" formControlName="quantidade" pInputText />
-    </div>
+    <label for="quantidade">Quantidade</label>
+<input type="number" formControlName="quantidade" pInputText />
+<small *ngIf="formMovimentacao.get('quantidade')?.invalid && formMovimentacao.get('quantidade')?.touched" class="p-error">Quantidade é obrigatória</small>
+<small *ngIf="formMovimentacao.get('quantidade')?.value < 0" class="p-error">Quantidade não pode ser negativa</small>
     <div class="p-field">
       <label for="motivo">Motivo</label>
       <textarea rows="3" formControlName="motivo" pInputTextarea></textarea>
@@ -35,7 +38,7 @@
       <label for="situacao">Situação</label>
       <input type="text" formControlName="situacao" pInputText />
     </div>
-    <button pButton type="submit" label="Salvar" (click)="insertMovimentacao()" [disabled]="!formMovimentacao.valid"></button>
+    <button pButton type="submit" label="Salvar" (click)="save()" [disabled]="!formMovimentacao.valid"></button>
     <button pButton type="button" label="Apagar" (click)="cancel()"></button>
   </form>
 </div>

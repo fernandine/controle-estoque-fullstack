@@ -19,7 +19,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/movimentacoes")
-@CrossOrigin(origins = "http://localhost:8081", maxAge = 3600, allowCredentials="true")
 public class MovimentacaoController {
 
     @Autowired
@@ -44,7 +43,7 @@ public class MovimentacaoController {
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('ROLE_MODERATOR')")
+    //@PreAuthorize("hasRole('ROLE_OPERATOR')")
     public ResponseEntity<MovimentacaoDto> insert(@Valid @RequestBody MovimentacaoDto dto) {
         dto = service.insert(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
@@ -53,7 +52,7 @@ public class MovimentacaoController {
     }
 
     @PutMapping(value = "/{id}")
-    @PreAuthorize("hasRole('ROLE_MODERATOR')")
+    //@PreAuthorize("hasRole('ROLE_MODERATOR')")
     public ResponseEntity<MovimentacaoDto> update(@PathVariable Long id, @Valid @RequestBody MovimentacaoDto dto) {
         dto = service.update(id, dto);
         return ResponseEntity.ok().body(dto);

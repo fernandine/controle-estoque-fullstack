@@ -1,5 +1,6 @@
 package com.control.inventory.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.*;
@@ -27,7 +28,7 @@ public class Produto implements Serializable {
     @JoinColumn(name = "saldo_inicial")
     private Long saldoInicial;
 
-    @OneToMany(mappedBy = "produto")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "produto")
     private List<Movimentacao> movimentacoes;
 
 }

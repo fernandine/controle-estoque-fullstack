@@ -2,6 +2,7 @@ package com.control.inventory.services;
 
 import com.control.inventory.dtos.ProdutoDto;
 import com.control.inventory.entities.Produto;
+import com.control.inventory.repositories.MovimentoEstoqueRepository;
 import com.control.inventory.repositories.ProdutoRepository;
 import com.control.inventory.services.exceptions.DatabaseException;
 import com.control.inventory.services.exceptions.ResourceNotFoundException;
@@ -11,16 +12,22 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
+
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Validated
 @Service
 public class ProdutoService {
 
     @Autowired
     private ProdutoRepository repository;
+
+    @Autowired
+    private MovimentacaoService service;
 
 
     @Transactional(readOnly = true)
@@ -59,7 +66,7 @@ public class ProdutoService {
         }
     }
 
-    @Transactional(propagation = Propagation.SUPPORTS)
+    //@Transactional(propagation = Propagation.SUPPORTS)
     public void delete(Long id) {
         try {
             repository.deleteById(id);
@@ -71,6 +78,9 @@ public class ProdutoService {
             throw new DatabaseException("Integrity violation");
         }
     }
+
+
+
 
     private void copyDtoToEntity(ProdutoDto dto, Produto entity) {
         entity.setCodigo(dto.getCodigo());

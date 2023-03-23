@@ -18,6 +18,7 @@ export class FormProdutoComponent {
     private produtoService: ProdutoService
   ) { }
 
+
   ngOnInit() {
     this.formProduto = this.formBuilder.group({
       codigo: [0, Validators.required],
@@ -25,7 +26,6 @@ export class FormProdutoComponent {
       quantidadeMinima: [0, Validators.required],
       saldoInicial: [0, Validators.required]},
       { validator: this.validarSaldoInicial });
-
 
   }
 
@@ -39,13 +39,11 @@ export class FormProdutoComponent {
     this.produtoService.createProduto(produto).subscribe(() => {
       this.formProduto.reset();
       this.displayDialog = false;
-      // lógica para atualizar a lista de produtos na página
-
+      window.location.reload();
     });
   }
 
   carregarProdutos() {
-    // Serviço de produtos para carregar a lista de produtos
     this.produtoService.getProdutos().subscribe((produto) => {
       this.produtos = produto;
     });

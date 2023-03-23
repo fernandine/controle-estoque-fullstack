@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -7,41 +7,40 @@ import { AppComponent } from './app.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
-import { AppRoutingModule } from './app-routing.module';
-import { PrimeNgModule } from './primeng.module';
-import { LoginComponent } from './authentication/login/login.component';
-import { FormMovimentacaoComponent } from './formularios/form-movimentacao/form-movimentacao.component';
-import { HomeComponent } from './components/home/home.component';
-import { FormProdutoComponent } from './formularios/form-produto/form-produto.component';
-import { ListaProdutoComponent } from './listas/lista-produto/lista-produto.component';
 import { MessageService } from 'primeng/api';
+import { AppRoutingModule } from './app-routing.module';
+import { DetalheMovimentacaoComponent } from './detalhes/detalhe-movimentacao/detalhe-movimentacao.component';
+import { FormMovimentacaoComponent } from './formularios/form-movimentacao/form-movimentacao.component';
+import { FormProdutoComponent } from './formularios/form-produto/form-produto.component';
+import { LoginComponent } from './formularios/login/login.component';
 import { ListaMovimentacaoComponent } from './listas/lista-movimentacao/lista-movimentacao.component';
-import { DetalheProdutoComponent } from './detalhe-produto/detalhe-produto.component';
-import { DetalheMovimentacaoComponent } from './detalhe-movimentacao/detalhe-movimentacao.component';
-import { TokenInterceptor } from './interceptors/token.interceptor';
-import { UserComponent } from './components/user/user.component';
-import { UserService } from './service/user.service';
+import { ListaProdutoComponent } from './listas/lista-produto/lista-produto.component';
+import { UserComponent } from './listas/user/user.component';
+import { PrimeNgModule } from './primeng.module';
 import { StatusRolePipe } from './status-role.pipe';
+import { NotificacaoService } from './service/notificacao.service';
+import { TokenInterceptor } from './token.interceptor';
+import { DetalheProdutoComponent } from './detalhes/detalhe-produto/detalhe-produto.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         LoginComponent,
-        HomeComponent,
         FormMovimentacaoComponent,
         FormProdutoComponent,
         ListaMovimentacaoComponent,
         ListaProdutoComponent,
-        DetalheProdutoComponent,
         DetalheMovimentacaoComponent,
+        DetalheProdutoComponent,
         UserComponent,
-        StatusRolePipe
-
+        StatusRolePipe,
+        HomeComponent
           ],
     providers: [
       MessageService,
-      UserService,
-      TokenInterceptor
+      NotificacaoService,
+      { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
     ],
     bootstrap: [AppComponent],
     imports: [

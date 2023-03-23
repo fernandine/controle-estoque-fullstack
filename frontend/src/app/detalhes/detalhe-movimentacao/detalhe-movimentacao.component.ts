@@ -1,8 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-
-import { Movimentacao } from '../common/movimentacao';
-import { MovimentacaoService } from '../service/movimentacao.service';
+import { Location } from '@angular/common';
+import { Movimentacao } from '../../common/movimentacao';
+import { MovimentacaoService } from '../../service/movimentacao.service';
 
 @Component({
   selector: 'app-detalhe-movimentacao',
@@ -22,6 +22,7 @@ export class DetalheMovimentacaoComponent {
 
   constructor(private activateRoute: ActivatedRoute,
     private movimentacaoService: MovimentacaoService,
+    private location: Location,
     private router: Router) { }
 
   ngOnInit(): void {
@@ -114,8 +115,7 @@ export class DetalheMovimentacaoComponent {
   }
 
   voltar() {
-    this.router.navigate(['/movimentacoes']);
-  }
+    this.location.back();  }
 
 }
 

@@ -62,24 +62,4 @@ export class AuthService {
     });
   }
 
-  get(url: string): Observable<any> {
-    const headers = this.getHeaders();
-    return this.http.get(url, { headers });
-  }
-
-  post(url: string, data: any): Observable<any> {
-    const headers = this.getHeaders();
-    return this.http.post(url, data, { headers });
-  }
-
-  put(url: string, data: any): Observable<any> {
-    const headers = this.getHeaders();
-    return this.http.put(url, data, { headers });
-  }
-
-  delete(url: string): Observable<any> {
-    const headers = this.getHeaders();
-    return this.http.delete(url, { headers });
-  }
-
 }

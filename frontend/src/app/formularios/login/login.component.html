@@ -1,24 +1,24 @@
 <div class="p-grid p-justify-center">
   <div class="p-col-12 p-md-6">
     <div class="p-card p-shadow-6">
-      <h1>Login</h1>
+      <h1 class="text-center">Login</h1>
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <div class="p-fluid">
-          <div class="p-field">
+          <div class="p-field mb-3">
             <label for="username">Username</label>
             <input type="text" pInputText formControlName="username" id="username">
             <small class="p-invalid" *ngIf="loginForm.get('username')?.invalid && (loginForm.get('username')?.dirty || loginForm.get('username')?.touched)">
-              <div *ngIf="loginForm.get('username')?.hasError('required')">Username is required</div>
+              <div *ngIf="loginForm.get('username')?.hasError('required')">Este campo é obrigatório</div>
             </small>
           </div>
           <div class="p-field">
             <label for="password">Password</label>
-            <input type="password" pPassword formControlName="password" id="password">
+            <p-password formControlName="password" id="password" [toggleMask]="true"></p-password>
             <small class="p-invalid" *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)">
-              <div *ngIf="loginForm.get('password')?.hasError('required')">Username is required</div>
+              <div *ngIf="loginForm.get('password')?.hasError('required')">Este campo é obrigatório</div>
             </small>
           </div>
-          <button pButton type="submit" label="Login" class="p-mt-3" [disabled]="!loginForm.valid"></button>
+          <button pButton type="submit" label="Login" class="mt-8" [disabled]="!loginForm.valid"></button>
         </div>
       </form>
     </div>

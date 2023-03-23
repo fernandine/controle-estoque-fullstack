@@ -11,6 +11,7 @@ import { ProdutoService } from "src/app/service/produto.service";
 export class ListaProdutoComponent implements OnInit {
 
   produtos: Produto[] = [];
+  isLoggedIn = false;
 
   constructor(
     private produtoService: ProdutoService,
@@ -26,10 +27,14 @@ export class ListaProdutoComponent implements OnInit {
     this.router.navigate(['/produtos', id]);
   }
 
-excluirProduto(produto: Produto): void {
-    const index = this.produtos.findIndex(p => p === produto);
-    if (index !== -1) {
-      this.produtos.splice(index, 1);
-    }
+  excluirProduto(id: number): void {
+    this.produtoService.deleteProduto(id)
+      .subscribe(() => {
+        const index = this.produtos.findIndex(p => p.id === id);
+        if (index !== -1) {
+          this.produtos.splice(index, 1);
+        }
+      });
   }
+
 }
